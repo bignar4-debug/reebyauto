@@ -1,0 +1,78 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "À propos · Jonni Langlois, Reeby Auto",
+  description:
+    "Jonni Langlois, Courtier Automobile Expert (CAE) à Montréal. Expertise, connaissance du marché et nombreuses transactions au service des acheteurs et des vendeurs.",
+};
+
+const VALEURS = [
+  {
+    titre: "Expertise reconnue",
+    texte:
+      "Une lecture fine du marché et un œil aiguisé pour les véhicules d'exception, de la collection à la sportive.",
+  },
+  {
+    titre: "Confiance et transparence",
+    texte:
+      "Jonni travaille dans l'intérêt de l'acheteur comme du vendeur. Vente de particulier : une seule taxe (TVQ).",
+  },
+  {
+    titre: "Réseau et discrétion",
+    texte:
+      "Un réseau solide et une approche discrète, haut de gamme. Loin du vendeur agressif.",
+  },
+];
+
+export default function APropos() {
+  return (
+    <div className="contenu page">
+      <header className="page-tete">
+        <p className="surtitre">À propos</p>
+        <h1 className="page-titre display">
+          Jonni Langlois, votre courtier de confiance.
+        </h1>
+      </header>
+
+      <div className="apropos-corps">
+        <div className="prose">
+          <p>
+            Fondateur de Reeby Auto et{" "}
+            <strong>Courtier Automobile Expert (CAE)</strong>, Jonni Langlois a
+            bâti sa réputation sur une passion sincère pour l&apos;automobile et
+            un souci constant du détail. Au fil de{" "}
+            <strong>nombreuses transactions</strong>, il a accompagné autant des
+            acheteurs exigeants que des vendeurs soucieux d&apos;obtenir la
+            meilleure valeur pour leur véhicule.
+          </p>
+          <p>
+            Sa <strong>connaissance approfondie du marché</strong> lui permet
+            d&apos;évaluer un véhicule avec justesse, de déceler l&apos;exception
+            et d&apos;éviter les pièges. Chaque voiture qu&apos;il propose est
+            inspectée, jamais accidentée, et sélectionnée avec la même rigueur
+            qu&apos;il appliquerait à la sienne.
+          </p>
+        </div>
+      </div>
+
+      <section className="valeurs" aria-label="Nos valeurs">
+        {VALEURS.map((v) => (
+          <div key={v.titre} className="valeur">
+            <h2 className="valeur-titre">{v.titre}</h2>
+            <p className="valeur-texte">{v.texte}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="cta-bande">
+        <Link href="/inventaire" className="btn btn-primaire">
+          Voir l&apos;inventaire
+        </Link>
+        <Link href="/vendez" className="btn btn-secondaire">
+          Vendez votre auto
+        </Link>
+      </section>
+    </div>
+  );
+}
