@@ -62,6 +62,14 @@ export default async function FicheVehicule({
     ["Couleur intérieure", v.interior_color ?? "n/d"],
   ];
 
+  // Description : 1re ligne = phrase d'intro, les suivantes = caractéristiques (rangées).
+  const descLignes = (v.description ?? "")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+  const descLead = descLignes[0] ?? null;
+  const descPoints = descLignes.slice(1);
+
   return (
     <div className="contenu page fiche">
       <Link href="/#vehicules" className="fiche-retour">
@@ -109,7 +117,14 @@ export default async function FicheVehicule({
           </h1>
           <p className="fiche-prix mono">{formatPrix(v.price)}</p>
 
-          {v.description && <p className="fiche-desc">{v.description}</p>}
+          {descLead && <p className="fiche-lead">{descLead}</p>}
+          {descPoints.length > 0 && (
+            <ul className="fiche-points">
+              {descPoints.map((point, i) => (
+                <li key={i}>{point}</li>
+              ))}
+            </ul>
+          )}
 
           <div className="fiche-actions">
             <Link href="/contact" className="btn btn-primaire">
