@@ -31,10 +31,14 @@ export default function Header() {
       setMontre(true);
       return;
     }
-    const onScroll = () => setMontre(window.scrollY > 80);
+    const onScroll = () => setMontre(window.scrollY > window.innerHeight * 0.7);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [estAccueil]);
 
   const estActif = (href: string) =>

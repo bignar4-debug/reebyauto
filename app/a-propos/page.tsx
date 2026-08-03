@@ -7,24 +7,6 @@ export const metadata: Metadata = {
     "Jonni Langlois, Courtier Automobile Expert (CAE) à Montréal. Expertise, connaissance du marché et nombreuses transactions au service des acheteurs et des vendeurs.",
 };
 
-const VALEURS = [
-  {
-    titre: "Expertise reconnue",
-    texte:
-      "Une lecture fine du marché et un œil aiguisé pour les véhicules d'exception, de la collection à la sportive.",
-  },
-  {
-    titre: "Confiance et transparence",
-    texte:
-      "Jonni travaille dans l'intérêt de l'acheteur comme du vendeur. Vente de particulier : une seule taxe (TVQ).",
-  },
-  {
-    titre: "Réseau et discrétion",
-    texte:
-      "Un réseau solide et une approche discrète, haut de gamme. Loin du vendeur agressif.",
-  },
-];
-
 export default function APropos() {
   return (
     <div className="contenu page">
@@ -55,15 +37,6 @@ export default function APropos() {
           </p>
         </div>
       </div>
-
-      <section className="valeurs" aria-label="Nos valeurs">
-        {VALEURS.map((v) => (
-          <div key={v.titre} className="valeur">
-            <h2 className="valeur-titre">{v.titre}</h2>
-            <p className="valeur-texte">{v.texte}</p>
-          </div>
-        ))}
-      </section>
 
       <section className="cta-bande">
         <Link href="/inventaire" className="btn btn-primaire">
