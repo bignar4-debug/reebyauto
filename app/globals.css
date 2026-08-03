@@ -7,16 +7,16 @@
    ============================================================ */
 
 :root {
-  --encre: #16130e;      /* fond de page (encre chaude) */
-  --surface: #1e1a12;    /* cartes / surfaces */
-  --surface-2: #26221a;  /* survol */
-  --creme: #ece6da;      /* texte principal */
-  --creme-2: #b3ab9b;    /* texte secondaire */
-  --gris-2: #7c7566;     /* texte tertiaire */
-  --laiton: #a07f42;     /* accent laiton mat (plat, jamais dégradé) */
-  --laiton-clair: #c8a25c;
-  --ligne: rgba(236, 230, 218, 0.11);
-  --ligne-2: rgba(236, 230, 218, 0.2);
+  --encre: #0b0b0c;      /* fond de page (noir neutre) */
+  --surface: #141416;    /* cartes / surfaces */
+  --surface-2: #1c1c1f;  /* survol */
+  --creme: #f2f2f3;      /* texte principal (blanc neutre) */
+  --creme-2: #a1a1a6;    /* texte secondaire */
+  --gris-2: #6c6c72;     /* texte tertiaire */
+  --laiton: #b98f4e;     /* accent laiton (usage rare) */
+  --laiton-clair: #d0a85f;
+  --ligne: rgba(255, 255, 255, 0.1);
+  --ligne-2: rgba(255, 255, 255, 0.18);
 
   --font-title: var(--font-antonio), "Arial Narrow", sans-serif;
   --font-body: var(--font-manrope), system-ui, sans-serif;
@@ -166,13 +166,20 @@ h1, h2, h3, h4 {
    EN-TÊTE — barre solide, collée en haut
    ============================================================ */
 .entete {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: rgba(22, 19, 14, 0.86);
+  background: rgba(11, 11, 12, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--ligne);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+.entete.est-visible {
+  transform: none;
 }
 .nav-inner {
   max-width: var(--max-contenu);
@@ -273,7 +280,7 @@ h1, h2, h3, h4 {
     align-items: stretch;
     margin: 0;
     padding: 6px 0 10px;
-    background: rgba(22, 19, 14, 0.98);
+    background: rgba(11, 11, 12, 0.98);
     border-bottom: 1px solid var(--ligne);
   }
   .nav-liens.est-ouvert {
@@ -426,7 +433,7 @@ h1, h2, h3, h4 {
    ============================================================ */
 .hero-v {
   position: relative;
-  min-height: calc(100svh - var(--nav-h));
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -451,8 +458,8 @@ h1, h2, h3, h4 {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 50% 42%, transparent 42%, rgba(22, 19, 14, 0.55) 100%),
-    linear-gradient(180deg, rgba(22, 19, 14, 0.3), rgba(22, 19, 14, 0.6));
+    radial-gradient(120% 90% at 50% 42%, transparent 42%, rgba(11, 11, 12, 0.55) 100%),
+    linear-gradient(180deg, rgba(11, 11, 12, 0.3), rgba(11, 11, 12, 0.6));
 }
 .hero-v-centre {
   position: relative;
@@ -592,7 +599,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #100d09;
+  background: #0e0e10;
   border-bottom: 1px solid var(--ligne);
   overflow: hidden;
 }
@@ -602,7 +609,7 @@ h1, h2, h3, h4 {
 .vcard-silhouette {
   width: 56%;
   height: auto;
-  color: rgba(236, 230, 218, 0.08);
+  color: rgba(255, 255, 255, 0.08);
 }
 .vcard-body {
   padding: 18px 20px 22px;
@@ -674,7 +681,7 @@ h1, h2, h3, h4 {
   letter-spacing: 0.1em;
   color: var(--creme);
   border: 1px solid var(--ligne-2);
-  background: rgba(22, 19, 14, 0.82);
+  background: rgba(11, 11, 12, 0.82);
 }
 .badge::before {
   content: "";
@@ -697,7 +704,7 @@ h1, h2, h3, h4 {
    PAGES INTERNES
    ============================================================ */
 .page {
-  padding-top: 60px;
+  padding-top: calc(var(--nav-h) + 32px);
   padding-bottom: 60px;
 }
 .page-tete {
@@ -789,7 +796,7 @@ h1, h2, h3, h4 {
 }
 .champ input,
 .champ textarea {
-  background: #100d09;
+  background: #0e0e10;
   border: 1px solid var(--ligne-2);
   color: var(--creme);
   font-family: var(--font-body);
@@ -901,7 +908,7 @@ h1, h2, h3, h4 {
    FICHE VÉHICULE
    ============================================================ */
 .fiche {
-  padding-top: 40px;
+  padding-top: calc(var(--nav-h) + 16px);
 }
 .fiche-retour {
   display: inline-block;
@@ -924,7 +931,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #100d09;
+  background: #0e0e10;
   border: 1px solid var(--ligne);
   overflow: hidden;
 }

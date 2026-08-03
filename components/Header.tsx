@@ -3,10 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
- * Barre de navigation : solide, collée en haut, pleine largeur.
+ * Barre de navigation.
+ * Sur l'accueil : cachée en haut (hero plein écran), apparaît dès qu'on défile.
+ * Sur les autres pages : toujours visible.
  */
 
 const LIENS = [
@@ -20,12 +22,26 @@ const LIENS = [
 export default function Header() {
   const pathname = usePathname();
   const [ouvert, setOuvert] = useState(false);
+  const estAccueil = pathname === "/";
+  const [montre, setMontre] = useState(!estAccueil);
+
+  useEffect(() => {
+    setOuvert(false);
+    if (!estAccueil) {
+      setMontre(true);
+      return;
+    }
+    const onScroll = () => setMontre(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [estAccueil]);
 
   const estActif = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="entete">
+    <header className={`entete ${montre ? "est-visible" : ""}`}>
       <nav className="nav-inner" aria-label="Navigation principale">
         <Link href="/" className="nav-logo" onClick={() => setOuvert(false)}>
           <Image

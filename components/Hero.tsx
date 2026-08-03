@@ -67,10 +67,6 @@ export default function Hero() {
           </Link>
         </div>
       </div>
-
-      <a href="#vehicules" className="hero-scroll" aria-label="Défiler">
-        Nos véhicules
-      </a>
     </section>
   );
 }
