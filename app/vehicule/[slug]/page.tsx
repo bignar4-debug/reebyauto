@@ -113,7 +113,7 @@ export default async function FicheVehicule({
 
           <div className="fiche-actions">
             <Link href="/contact" className="btn btn-primaire">
-              Contactez-nous
+              Demander de l&apos;information
             </Link>
           </div>
         </div>
