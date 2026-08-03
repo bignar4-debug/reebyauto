@@ -112,12 +112,9 @@ export default async function FicheVehicule({
           {v.description && <p className="fiche-desc">{v.description}</p>}
 
           <div className="fiche-actions">
-            <a href="tel:+14385264388" className="btn btn-primaire">
-              Contacter Jonni
-            </a>
-            <a href="mailto:jonni@reebyauto.ca" className="btn btn-secondaire">
-              Écrire un courriel
-            </a>
+            <Link href="/contact" className="btn btn-primaire">
+              Contactez-nous
+            </Link>
           </div>
         </div>
       </div>
