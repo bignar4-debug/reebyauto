@@ -4,7 +4,7 @@ import VendezForm from "@/components/VendezForm";
 export const metadata: Metadata = {
   title: "Vendez votre auto · Reeby Auto",
   description:
-    "Confiez la vente de votre véhicule à un courtier certifié. 1 % de commission, aucun frais d'avance, aucun risque. Grande région de Montréal.",
+    "Confiez la vente de votre véhicule à un courtier. 1 % de commission, aucun risque. Grande région de Montréal.",
 };
 
 const ETAPES = [
@@ -37,8 +37,8 @@ export default function Vendez() {
           Confiez-nous la vente, on s&apos;occupe du reste.
         </h1>
         <p className="page-sous">
-          Un accompagnement complet par un courtier certifié. 1 % de commission,
-          aucun risque.
+          Un accompagnement complet par un courtier. 1 % de commission, aucun
+          risque.
         </p>
       </header>
 

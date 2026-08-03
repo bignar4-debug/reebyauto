@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "À propos · Jonni Langlois, Reeby Auto",
   description:
-    "Jonni Langlois, Courtier Automobile Expert (CAE) à Montréal. Expertise, connaissance du marché et nombreuses transactions au service des acheteurs et des vendeurs.",
+    "Jonni Langlois, courtier automobile à Montréal. Expertise, connaissance du marché et nombreuses transactions au service des acheteurs et des vendeurs.",
 };
 
 export default function APropos() {
@@ -20,9 +20,8 @@ export default function APropos() {
       <div className="apropos-corps">
         <div className="prose">
           <p>
-            Fondateur de Reeby Auto et{" "}
-            <strong>Courtier Automobile Expert (CAE)</strong>, Jonni Langlois a
-            bâti sa réputation sur une passion sincère pour l&apos;automobile et
+            Fondateur de Reeby Auto, Jonni Langlois a bâti sa réputation sur une
+            passion sincère pour l&apos;automobile et
             un souci constant du détail. Au fil de{" "}
             <strong>nombreuses transactions</strong>, il a accompagné autant des
             acheteurs exigeants que des vendeurs soucieux d&apos;obtenir la

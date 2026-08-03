@@ -6,7 +6,7 @@ import { CONTACT } from "@/lib/social";
 export const metadata: Metadata = {
   title: "Contact · Reeby Auto",
   description:
-    "Contactez Reeby Auto (Jonni Langlois, CAE) à Montréal. Téléphone, courriel et réseaux sociaux.",
+    "Contactez Reeby Auto (Jonni Langlois) à Montréal. Téléphone, courriel et réseaux sociaux.",
 };
 
 export default function Contact() {
