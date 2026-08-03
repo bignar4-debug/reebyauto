@@ -63,7 +63,9 @@ export default async function FicheVehicule({
   ];
 
   // Description : 1re ligne = phrase d'intro, les suivantes = caractéristiques (rangées).
-  const descLignes = (v.description ?? "")
+  const descText: string =
+    typeof v.description === "string" ? v.description : "";
+  const descLignes: string[] = descText
     .split("\n")
     .map((l) => l.trim())
     .filter(Boolean);
