@@ -573,12 +573,12 @@ h1, h2, h3, h4 {
   color: var(--creme-2);
 }
 .vehicules-featured {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 .vehicules-grille {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 24px;
 }
 @media (max-width: 900px) {
   .vehicules-grille {
@@ -603,7 +603,7 @@ h1, h2, h3, h4 {
 }
 .vcard-media {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -641,11 +641,11 @@ h1, h2, h3, h4 {
 /* Carte vedette (horizontale) */
 .vcard--featured {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 .vcard--featured .vcard-media {
-  aspect-ratio: auto;
-  min-height: 330px;
+  aspect-ratio: 4 / 3;
+  min-height: 0;
   border-bottom: none;
   border-right: 1px solid var(--ligne);
 }
@@ -667,7 +667,7 @@ h1, h2, h3, h4 {
     grid-template-columns: 1fr;
   }
   .vcard--featured .vcard-media {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
     min-height: 0;
     border-right: none;
     border-bottom: 1px solid var(--ligne);
