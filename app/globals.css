@@ -964,6 +964,7 @@ h1, h2, h3, h4 {
   margin: 22px 0 0;
   color: var(--creme-2);
   line-height: 1.75;
+  white-space: pre-line;
 }
 .fiche-actions {
   display: flex;

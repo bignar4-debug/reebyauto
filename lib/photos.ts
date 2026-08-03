@@ -19,6 +19,8 @@ export function primaryPhotoUrl(
     if (pb !== pa) return pb - pa;
     return (a.position ?? 0) - (b.position ?? 0);
   });
-  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const base =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ??
+    "https://qhgpcrrnglgzonarnkwb.supabase.co";
   return `${base}/storage/v1/object/public/vehicle-photos/${sorted[0].storage_path}`;
 }
