@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { t, type Locale } from "@/lib/i18n";
 
 /**
  * Hero : vidéo de fond + logo Reeby centré par-dessus.
  * Séquence d'intro : au chargement, une lumière dorée fait le tour du logo
  * (~1 s), puis la vidéo démarre derrière, le logo restant à la même place.
  */
-export default function Hero() {
+export default function Hero({ locale }: { locale: Locale }) {
   const [lance, setLance] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -60,10 +61,10 @@ export default function Hero() {
 
         <div className="hero-v-actions">
           <Link href="/inventaire" className="btn btn-primaire">
-            Voir l&apos;inventaire
+            {t(locale, "hero.cta_inventory")}
           </Link>
           <Link href="/vendez" className="btn btn-secondaire">
-            Vendez votre auto
+            {t(locale, "hero.cta_sell")}
           </Link>
         </div>
       </div>

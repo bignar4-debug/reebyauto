@@ -245,6 +245,32 @@ h1, h2, h3, h4 {
   gap: 12px;
   flex-shrink: 0;
 }
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+.lang-opt {
+  background: transparent;
+  border: none;
+  padding: 4px 5px;
+  color: var(--gris-2, #8a8a8f);
+  cursor: pointer;
+  transition: color 0.16s ease;
+}
+.lang-opt:hover {
+  color: var(--creme);
+}
+.lang-opt.actif {
+  color: var(--laiton, #b8985a);
+  font-weight: 600;
+}
+.lang-sep {
+  color: var(--ligne-2);
+}
 .nav-tel {
   padding: 8px 16px;
   border: 1px solid var(--ligne-2);

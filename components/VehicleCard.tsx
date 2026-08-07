@@ -3,6 +3,7 @@ import Link from "next/link";
 import { formatPrix, formatKm } from "@/lib/format";
 import { carImage } from "@/lib/carImage";
 import { primaryPhotoUrl, type VehiclePhoto } from "@/lib/photos";
+import { t, type Locale } from "@/lib/i18n";
 
 /**
  * Carte véhicule (aperçu), cliquable vers la fiche /vehicule/[slug].
@@ -21,20 +22,16 @@ type Vehicle = {
   vehicle_photos?: VehiclePhoto[] | null;
 };
 
-const STATUTS: Record<string, string> = {
-  available: "Disponible",
-  reserved: "Réservé",
-  sold: "Vendu",
-};
-
 export default function VehicleCard({
   v,
   featured = false,
+  locale = "fr",
 }: {
   v: Vehicle;
   featured?: boolean;
+  locale?: Locale;
 }) {
-  const statut = STATUTS[v.status] ?? v.status;
+  const statut = t(locale, `status.${v.status}`);
   const img = primaryPhotoUrl(v.vehicle_photos) ?? carImage(v.slug);
 
   return (
@@ -46,7 +43,7 @@ export default function VehicleCard({
         <span className={`badge badge-${v.status}`}>{statut}</span>
         {(v.status === "reserved" || v.status === "sold") && (
           <div className={`media-overlay media-overlay--${v.status}`}>
-            <span>{v.status === "sold" ? "Vendu" : "Réservé"}</span>
+            <span>{t(locale, `status.${v.status}`)}</span>
           </div>
         )}
         {img ? (
@@ -82,9 +79,9 @@ export default function VehicleCard({
           {v.make} {v.model}
         </h3>
         <p className="vcard-meta mono">
-          {v.year} · {formatKm(v.mileage_km)}
+          {v.year} · {formatKm(v.mileage_km, locale)}
         </p>
-        <p className="vcard-prix mono">{formatPrix(v.price)}</p>
+        <p className="vcard-prix mono">{formatPrix(v.price, locale)}</p>
       </div>
     </Link>
   );

@@ -3,6 +3,7 @@ import { Antonio, Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getLocale } from "@/lib/getLocale";
 
 // Polices auto-hébergées par Next (aucune requête vers Google au runtime).
 const antonio = Antonio({
@@ -32,19 +33,20 @@ export const metadata: Metadata = {
     "Courtage automobile pour particuliers à Montréal. Véhicules d'exception inspectés, jamais accidentés. Nous vendons aussi votre auto pour 1 % de commission.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
-    <html lang="fr">
+    <html lang={locale}>
       <body
         className={`${antonio.variable} ${manrope.variable} ${jetbrainsMono.variable}`}
       >
-        <Header />
+        <Header locale={locale} />
         <main>{children}</main>
-        <Footer />
+        <Footer locale={locale} />
       </body>
     </html>
   );

@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-
-const LABELS: Record<string, string> = { reserved: "Réservé", sold: "Vendu" };
+import { t, type Locale } from "@/lib/i18n";
 
 function Silhouette() {
   return (
@@ -25,15 +24,20 @@ export default function VehicleGallery({
   photos,
   alt,
   status,
+  locale = "fr",
 }: {
   photos: string[];
   alt: string;
   status: string;
+  locale?: Locale;
 }) {
   const [i, setI] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const n = photos.length;
-  const label = LABELS[status];
+  const label =
+    status === "reserved" || status === "sold"
+      ? t(locale, `status.${status}`)
+      : undefined;
 
   const prev = useCallback(() => setI((x) => (x - 1 + n) % n), [n]);
   const next = useCallback(() => setI((x) => (x + 1) % n), [n]);
@@ -74,7 +78,7 @@ export default function VehicleGallery({
         className="gallery-main"
         onClick={() => setLightbox(true)}
         role="button"
-        aria-label="Agrandir la photo"
+        aria-label={t(locale, "gallery.zoom")}
       >
         <Image
           src={photos[i]}
@@ -94,7 +98,7 @@ export default function VehicleGallery({
                 e.stopPropagation();
                 prev();
               }}
-              aria-label="Photo précédente"
+              aria-label={t(locale, "gallery.prev")}
             >
               ‹
             </button>
@@ -105,7 +109,7 @@ export default function VehicleGallery({
                 e.stopPropagation();
                 next();
               }}
-              aria-label="Photo suivante"
+              aria-label={t(locale, "gallery.next")}
             >
               ›
             </button>
@@ -138,7 +142,7 @@ export default function VehicleGallery({
             type="button"
             className="lightbox-fermer"
             onClick={() => setLightbox(false)}
-            aria-label="Fermer"
+            aria-label={t(locale, "gallery.close")}
           >
             ✕
           </button>
@@ -158,7 +162,7 @@ export default function VehicleGallery({
                   e.stopPropagation();
                   prev();
                 }}
-                aria-label="Photo précédente"
+                aria-label={t(locale, "gallery.prev")}
               >
                 ‹
               </button>
@@ -169,7 +173,7 @@ export default function VehicleGallery({
                   e.stopPropagation();
                   next();
                 }}
-                aria-label="Photo suivante"
+                aria-label={t(locale, "gallery.next")}
               >
                 ›
               </button>

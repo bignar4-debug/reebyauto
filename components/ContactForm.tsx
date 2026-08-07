@@ -3,24 +3,31 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { t, type Locale } from "@/lib/i18n";
 
 /**
- * Formulaire de contact. Validation côté client (Zod).
+ * Formulaire de contact. Validation côté client (Zod), messages traduits.
  * L'envoi par courriel (Resend) sera branché à la Phase 7 ; en attendant,
  * les coordonnées directes (téléphone, courriel, réseaux) sont pleinement
  * fonctionnelles sur la page.
  */
-const schema = z.object({
-  nom: z.string().min(2, "Votre nom est requis."),
-  courriel: z.string().min(1, "Courriel requis.").email("Courriel invalide."),
-  telephone: z.string().optional(),
-  message: z.string().min(5, "Écrivez-nous quelques mots."),
-});
+function makeSchema(locale: Locale) {
+  return z.object({
+    nom: z.string().min(2, t(locale, "form.err_name")),
+    courriel: z
+      .string()
+      .min(1, t(locale, "form.err_email_req"))
+      .email(t(locale, "form.err_email")),
+    telephone: z.string().optional(),
+    message: z.string().min(5, t(locale, "form.err_message")),
+  });
+}
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<ReturnType<typeof makeSchema>>;
 
-export default function ContactForm() {
+export default function ContactForm({ locale = "fr" }: { locale?: Locale }) {
+  const schema = useMemo(() => makeSchema(locale), [locale]);
   const {
     register,
     handleSubmit,
@@ -40,8 +47,7 @@ export default function ContactForm() {
   if (envoye) {
     return (
       <div className="form-succes" role="status">
-        <strong>Merci !</strong> Votre message a bien été reçu. On vous répond
-        rapidement. Pour une réponse immédiate, appelez le 438 526-4388.
+        {t(locale, "form.success_contact")}
       </div>
     );
   }
@@ -50,13 +56,13 @@ export default function ContactForm() {
     <form className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="form-grille">
         <div className="champ">
-          <label htmlFor="c-nom">Nom complet</label>
+          <label htmlFor="c-nom">{t(locale, "form.name")}</label>
           <input id="c-nom" type="text" autoComplete="name" {...register("nom")} />
           {errors.nom && <span className="champ-erreur">{errors.nom.message}</span>}
         </div>
 
         <div className="champ">
-          <label htmlFor="c-tel">Téléphone (optionnel)</label>
+          <label htmlFor="c-tel">{t(locale, "form.phone_opt")}</label>
           <input
             id="c-tel"
             type="tel"
@@ -66,7 +72,7 @@ export default function ContactForm() {
         </div>
 
         <div className="champ champ-large">
-          <label htmlFor="c-courriel">Courriel</label>
+          <label htmlFor="c-courriel">{t(locale, "form.email")}</label>
           <input
             id="c-courriel"
             type="email"
@@ -79,7 +85,7 @@ export default function ContactForm() {
         </div>
 
         <div className="champ champ-large">
-          <label htmlFor="c-message">Message</label>
+          <label htmlFor="c-message">{t(locale, "form.message")}</label>
           <textarea id="c-message" rows={5} {...register("message")} />
           {errors.message && (
             <span className="champ-erreur">{errors.message.message}</span>
@@ -88,7 +94,7 @@ export default function ContactForm() {
       </div>
 
       <button type="submit" className="btn btn-primaire" disabled={isSubmitting}>
-        {isSubmitting ? "Envoi…" : "Envoyer le message"}
+        {isSubmitting ? t(locale, "form.sending") : t(locale, "form.send_message")}
       </button>
     </form>
   );

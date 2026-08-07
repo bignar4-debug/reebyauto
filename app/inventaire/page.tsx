@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import VehicleCard from "@/components/VehicleCard";
 import { supabase } from "@/lib/supabase";
-
-export const revalidate = 60;
+import { getLocale } from "@/lib/getLocale";
+import { t } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Inventaire · Reeby Auto",
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Inventaire() {
+  const locale = await getLocale();
   const { data: vehicules } = await supabase
     .from("vehicles")
     .select(
@@ -22,24 +23,19 @@ export default async function Inventaire() {
   return (
     <div className="contenu page">
       <header className="page-tete">
-        <p className="surtitre">Inventaire</p>
-        <h1 className="page-titre display">Notre inventaire</h1>
-        <p className="page-sous">
-          Des véhicules d&apos;exception, inspectés et jamais accidentés. Vente
-          de particulier : une seule taxe.
-        </p>
+        <p className="surtitre">{t(locale, "inv.eyebrow")}</p>
+        <h1 className="page-titre display">{t(locale, "inv.title")}</h1>
+        <p className="page-sous">{t(locale, "inv.sub")}</p>
       </header>
 
       {vehicules && vehicules.length > 0 ? (
         <div className="vehicules-grille">
           {vehicules.map((v) => (
-            <VehicleCard key={v.slug} v={v} />
+            <VehicleCard key={v.slug} v={v} locale={locale} />
           ))}
         </div>
       ) : (
-        <p className="vehicules-vide">
-          Aucun véhicule pour le moment. Revenez bientôt.
-        </p>
+        <p className="vehicules-vide">{t(locale, "inv.empty")}</p>
       )}
     </div>
   );

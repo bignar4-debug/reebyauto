@@ -5,8 +5,8 @@ import { supabase } from "@/lib/supabase";
 import { allPhotoUrls } from "@/lib/photos";
 import { formatPrix, formatKm, carrosserieLabel } from "@/lib/format";
 import VehicleGallery from "@/components/VehicleGallery";
-
-export const revalidate = 60;
+import { getLocale } from "@/lib/getLocale";
+import { t } from "@/lib/i18n";
 
 async function getVehicule(slug: string) {
   const { data } = await supabase
@@ -38,20 +38,22 @@ export default async function FicheVehicule({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const locale = await getLocale();
   const v = await getVehicule(slug);
   if (!v) notFound();
 
   const photos = allPhotoUrls(v.vehicle_photos);
+  const na = t(locale, "value.na");
 
   const specs = [
-    ["Année", String(v.year)],
-    ["Kilométrage", formatKm(v.mileage_km)],
-    ["Carrosserie", carrosserieLabel(v.body_type)],
-    ["Transmission", v.transmission ?? "n/d"],
-    ["Rouage", v.drivetrain ?? "n/d"],
-    ["Carburant", v.fuel ?? "n/d"],
-    ["Couleur extérieure", v.exterior_color ?? "n/d"],
-    ["Couleur intérieure", v.interior_color ?? "n/d"],
+    [t(locale, "fiche.year"), String(v.year)],
+    [t(locale, "fiche.mileage"), formatKm(v.mileage_km, locale)],
+    [t(locale, "fiche.body"), carrosserieLabel(v.body_type, locale)],
+    [t(locale, "fiche.transmission"), v.transmission ?? na],
+    [t(locale, "fiche.drivetrain"), v.drivetrain ?? na],
+    [t(locale, "fiche.fuel"), v.fuel ?? na],
+    [t(locale, "fiche.ext_color"), v.exterior_color ?? na],
+    [t(locale, "fiche.int_color"), v.interior_color ?? na],
   ];
 
   // Description : 1re ligne = phrase d'intro, les suivantes = caractéristiques (rangées).
@@ -67,7 +69,7 @@ export default async function FicheVehicule({
   return (
     <div className="contenu page fiche">
       <Link href="/#vehicules" className="fiche-retour">
-        ← Retour à l&apos;inventaire
+        {t(locale, "fiche.back")}
       </Link>
 
       <div className="fiche-grille">
@@ -76,15 +78,16 @@ export default async function FicheVehicule({
           photos={photos}
           alt={`${v.make} ${v.model} ${v.year}`}
           status={v.status}
+          locale={locale}
         />
 
         {/* Infos */}
         <div className="fiche-infos">
-          <p className="surtitre">{carrosserieLabel(v.body_type)}</p>
+          <p className="surtitre">{carrosserieLabel(v.body_type, locale)}</p>
           <h1 className="fiche-titre">
             {v.make} {v.model}
           </h1>
-          <p className="fiche-prix mono">{formatPrix(v.price)}</p>
+          <p className="fiche-prix mono">{formatPrix(v.price, locale)}</p>
 
           {descLead && <p className="fiche-lead">{descLead}</p>}
           {descPoints.length > 0 && (
@@ -97,7 +100,7 @@ export default async function FicheVehicule({
 
           <div className="fiche-actions">
             <Link href="/contact" className="btn btn-primaire">
-              Demander de l&apos;information
+              {t(locale, "fiche.cta")}
             </Link>
           </div>
         </div>

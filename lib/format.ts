@@ -1,37 +1,48 @@
 /**
- * Formats français québécois pour les données de véhicules.
+ * Formats des données de véhicules, adaptés à la langue (fr-CA / en-CA).
  */
+import { t, type Locale } from "./i18n";
 
-const nf = new Intl.NumberFormat("fr-CA");
-
-/** 84500 -> "84 500 $" (espaces insécables, $ à la fin). */
-export function formatPrix(valeur: number | null | undefined): string {
-  if (valeur == null) return "Prix sur demande";
-  return `${nf.format(valeur)} $`;
+/** 84500 -> "84 500 $" (fr) / "$84,500" (en). null -> "Prix sur demande". */
+export function formatPrix(
+  valeur: number | null | undefined,
+  locale: Locale = "fr"
+): string {
+  if (valeur == null) return t(locale, "price.on_request");
+  const nf = new Intl.NumberFormat(locale === "en" ? "en-CA" : "fr-CA");
+  return locale === "en" ? `$${nf.format(valeur)}` : `${nf.format(valeur)} $`;
 }
 
-/** 83000 -> "83 000 km". */
-export function formatKm(valeur: number | null | undefined): string {
-  if (valeur == null) return "n/d";
+/** 83000 -> "83 000 km" (fr) / "83,000 km" (en). null -> n/d · n/a. */
+export function formatKm(
+  valeur: number | null | undefined,
+  locale: Locale = "fr"
+): string {
+  if (valeur == null) return t(locale, "value.na");
+  const nf = new Intl.NumberFormat(locale === "en" ? "en-CA" : "fr-CA");
   return `${nf.format(valeur)} km`;
 }
 
-/** Libellé français de la carrosserie (slug -> texte). */
-const CARROSSERIES: Record<string, string> = {
-  coupe: "Coupé",
-  sedan: "Berline",
-  suv: "VUS",
-  hatchback: "Sportback",
-  wagon: "Familiale",
-  convertible: "Cabriolet",
-  truck: "Camion",
-};
+const CARROSSERIE_SLUGS = [
+  "coupe",
+  "convertible",
+  "sedan",
+  "suv",
+  "hatchback",
+  "wagon",
+  "truck",
+];
 
-export function carrosserieLabel(slug: string | null | undefined): string {
-  if (!slug) return "n/d";
-  return CARROSSERIES[slug] ?? slug;
+/** Libellé traduit de la carrosserie (slug -> texte). */
+export function carrosserieLabel(
+  slug: string | null | undefined,
+  locale: Locale = "fr"
+): string {
+  if (!slug) return t(locale, "value.na");
+  return CARROSSERIE_SLUGS.includes(slug) ? t(locale, `body.${slug}`) : slug;
 }
 
+/** Options du menu carrosserie (admin, français uniquement). */
 export const CARROSSERIE_OPTIONS = [
   { value: "coupe", label: "Coupé" },
   { value: "convertible", label: "Cabriolet" },

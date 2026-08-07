@@ -3,28 +3,35 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { t, type Locale } from "@/lib/i18n";
 
 /**
- * Formulaire "Vendez votre auto".
- * Validation côté client (Zod). L'ENVOI RÉEL (courriel Resend + enregistrement
- * de la demande dans Supabase) sera branché à la Phase 7 — pour l'instant on
- * valide et on affiche une confirmation.
+ * Formulaire "Vendez votre auto". Validation côté client (Zod), messages
+ * traduits. L'ENVOI RÉEL (courriel Resend + enregistrement de la demande dans
+ * Supabase) sera branché à la Phase 7 — pour l'instant on valide et on affiche
+ * une confirmation.
  */
-const schema = z.object({
-  nom: z.string().min(2, "Votre nom est requis."),
-  telephone: z.string().min(8, "Un numéro de téléphone valide est requis."),
-  courriel: z.string().min(1, "Courriel requis.").email("Courriel invalide."),
-  vehicule: z.string().min(2, "Indiquez la marque et le modèle."),
-  annee: z.string().optional(),
-  kilometrage: z.string().optional(),
-  prix: z.string().optional(),
-  message: z.string().optional(),
-});
+function makeSchema(locale: Locale) {
+  return z.object({
+    nom: z.string().min(2, t(locale, "form.err_name")),
+    telephone: z.string().min(8, t(locale, "form.err_phone")),
+    courriel: z
+      .string()
+      .min(1, t(locale, "form.err_email_req"))
+      .email(t(locale, "form.err_email")),
+    vehicule: z.string().min(2, t(locale, "form.err_vehicle")),
+    annee: z.string().optional(),
+    kilometrage: z.string().optional(),
+    prix: z.string().optional(),
+    message: z.string().optional(),
+  });
+}
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<ReturnType<typeof makeSchema>>;
 
-export default function VendezForm() {
+export default function VendezForm({ locale = "fr" }: { locale?: Locale }) {
+  const schema = useMemo(() => makeSchema(locale), [locale]);
   const {
     register,
     handleSubmit,
@@ -44,8 +51,7 @@ export default function VendezForm() {
   if (envoye) {
     return (
       <div className="form-succes" role="status">
-        <strong>Merci !</strong> Votre demande a bien été reçue. Jonni vous
-        contactera sous peu au sujet de votre véhicule.
+        {t(locale, "form.success_sell")}
       </div>
     );
   }
@@ -54,13 +60,13 @@ export default function VendezForm() {
     <form className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="form-grille">
         <div className="champ">
-          <label htmlFor="nom">Nom complet</label>
+          <label htmlFor="nom">{t(locale, "form.name")}</label>
           <input id="nom" type="text" autoComplete="name" {...register("nom")} />
           {errors.nom && <span className="champ-erreur">{errors.nom.message}</span>}
         </div>
 
         <div className="champ">
-          <label htmlFor="telephone">Téléphone</label>
+          <label htmlFor="telephone">{t(locale, "form.phone")}</label>
           <input
             id="telephone"
             type="tel"
@@ -73,7 +79,7 @@ export default function VendezForm() {
         </div>
 
         <div className="champ">
-          <label htmlFor="courriel">Courriel</label>
+          <label htmlFor="courriel">{t(locale, "form.email")}</label>
           <input
             id="courriel"
             type="email"
@@ -86,7 +92,7 @@ export default function VendezForm() {
         </div>
 
         <div className="champ">
-          <label htmlFor="vehicule">Véhicule (marque et modèle)</label>
+          <label htmlFor="vehicule">{t(locale, "form.vehicle")}</label>
           <input
             id="vehicule"
             type="text"
@@ -99,12 +105,12 @@ export default function VendezForm() {
         </div>
 
         <div className="champ">
-          <label htmlFor="annee">Année</label>
+          <label htmlFor="annee">{t(locale, "form.year")}</label>
           <input id="annee" type="text" inputMode="numeric" {...register("annee")} />
         </div>
 
         <div className="champ">
-          <label htmlFor="kilometrage">Kilométrage</label>
+          <label htmlFor="kilometrage">{t(locale, "form.mileage")}</label>
           <input
             id="kilometrage"
             type="text"
@@ -114,18 +120,18 @@ export default function VendezForm() {
         </div>
 
         <div className="champ champ-large">
-          <label htmlFor="prix">Prix demandé (optionnel)</label>
+          <label htmlFor="prix">{t(locale, "form.price_opt")}</label>
           <input id="prix" type="text" inputMode="numeric" {...register("prix")} />
         </div>
 
         <div className="champ champ-large">
-          <label htmlFor="message">Message (optionnel)</label>
+          <label htmlFor="message">{t(locale, "form.message_opt")}</label>
           <textarea id="message" rows={4} {...register("message")} />
         </div>
       </div>
 
       <button type="submit" className="btn btn-primaire" disabled={isSubmitting}>
-        {isSubmitting ? "Envoi…" : "Envoyer ma demande"}
+        {isSubmitting ? t(locale, "form.sending") : t(locale, "form.send_request")}
       </button>
     </form>
   );

@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { t, type Locale } from "@/lib/i18n";
+import LangToggle from "@/components/LangToggle";
 
 /**
  * Barre de navigation.
@@ -12,14 +14,14 @@ import { useEffect, useState } from "react";
  */
 
 const LIENS = [
-  { href: "/", label: "Accueil" },
-  { href: "/inventaire", label: "Inventaire" },
-  { href: "/vendez", label: "Vendez votre auto" },
-  { href: "/a-propos", label: "À propos" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", key: "nav.home" },
+  { href: "/inventaire", key: "nav.inventory" },
+  { href: "/vendez", key: "nav.sell" },
+  { href: "/a-propos", key: "nav.about" },
+  { href: "/contact", key: "nav.contact" },
 ];
 
-export default function Header() {
+export default function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [ouvert, setOuvert] = useState(false);
   const estAccueil = pathname === "/";
@@ -68,13 +70,14 @@ export default function Header() {
                 aria-current={estActif(lien.href) ? "page" : undefined}
                 onClick={() => setOuvert(false)}
               >
-                {lien.label}
+                {t(locale, lien.key)}
               </Link>
             </li>
           ))}
         </ul>
 
         <div className="nav-droite">
+          <LangToggle current={locale} />
           {/* Bouton menu : visible seulement sur mobile (via CSS) */}
           <button
             type="button"
