@@ -31,3 +31,23 @@ export function carrosserieLabel(slug: string | null | undefined): string {
   if (!slug) return "n/d";
   return CARROSSERIES[slug] ?? slug;
 }
+
+export const CARROSSERIE_OPTIONS = [
+  { value: "coupe", label: "Coupé" },
+  { value: "convertible", label: "Cabriolet" },
+  { value: "sedan", label: "Berline" },
+  { value: "suv", label: "VUS" },
+  { value: "hatchback", label: "Sportback" },
+  { value: "wagon", label: "Familiale" },
+  { value: "truck", label: "Camion" },
+];
+
+/** "Porsche 911 Carrera S 2021" -> "porsche-911-carrera-s-2021" */
+export function slugify(texte: string): string {
+  return texte
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
