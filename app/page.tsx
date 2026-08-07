@@ -13,7 +13,7 @@ export default async function Accueil() {
       "slug, make, model, year, price, mileage_km, body_type, status, vehicle_photos(storage_path, is_primary, position)"
     )
     .eq("published", true)
-    .eq("status", "available")
+    .order("status", { ascending: true }) // available, reserved, sold
     .order("display_order", { ascending: true });
 
   return (
@@ -24,7 +24,7 @@ export default async function Accueil() {
         <header className="vehicules-tete">
           <div>
             <p className="surtitre">Inventaire</p>
-            <h2 className="vehicules-titre display">Véhicules disponibles</h2>
+            <h2 className="vehicules-titre display">Nos véhicules</h2>
           </div>
           <Link href="/inventaire" className="vehicules-lien">
             Tout l&apos;inventaire →
@@ -46,7 +46,7 @@ export default async function Accueil() {
           </>
         ) : (
           <p className="vehicules-vide">
-            Aucun véhicule disponible pour le moment. Revenez bientôt.
+            Aucun véhicule pour le moment. Revenez bientôt.
           </p>
         )}
       </section>
