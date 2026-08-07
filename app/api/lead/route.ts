@@ -82,7 +82,7 @@ export async function POST(req: Request) {
     try {
       const { Resend } = await import("resend");
       const resend = new Resend(apiKey);
-      const to = process.env.LEAD_TO_EMAIL ?? "bignar4@gmail.com";
+      const to = process.env.LEAD_TO_EMAIL ?? "jonni@reebyauto.com";
       const from =
         process.env.LEAD_FROM_EMAIL ?? "Reeby Auto <onboarding@resend.dev>";
 
