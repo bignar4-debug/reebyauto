@@ -44,6 +44,11 @@ export default function VehicleCard({
     >
       <div className="vcard-media">
         <span className={`badge badge-${v.status}`}>{statut}</span>
+        {(v.status === "reserved" || v.status === "sold") && (
+          <div className={`media-overlay media-overlay--${v.status}`}>
+            <span>{v.status === "sold" ? "Vendu" : "Réservé"}</span>
+          </div>
+        )}
         {img ? (
           <Image
             src={img}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { ADMIN_USER_ID } from "@/lib/admin";
 import VehicleEditor from "@/components/admin/VehicleEditor";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
@@ -12,7 +13,7 @@ export default async function NouveauVehicule() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/admin/connexion");
+  if (!user || user.id !== ADMIN_USER_ID) redirect("/admin/connexion");
 
   return (
     <div className="contenu admin">

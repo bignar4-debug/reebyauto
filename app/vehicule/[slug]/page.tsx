@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabase";
-import { carImage } from "@/lib/carImage";
-import { primaryPhotoUrl } from "@/lib/photos";
+import { allPhotoUrls } from "@/lib/photos";
 import { formatPrix, formatKm, carrosserieLabel } from "@/lib/format";
+import VehicleGallery from "@/components/VehicleGallery";
 
 export const revalidate = 60;
-
-const STATUTS: Record<string, string> = {
-  available: "Disponible",
-  reserved: "Réservé",
-  sold: "Vendu",
-};
 
 async function getVehicule(slug: string) {
   const { data } = await supabase
@@ -48,8 +41,7 @@ export default async function FicheVehicule({
   const v = await getVehicule(slug);
   if (!v) notFound();
 
-  const img = primaryPhotoUrl(v.vehicle_photos) ?? carImage(v.slug);
-  const statut = STATUTS[v.status] ?? v.status;
+  const photos = allPhotoUrls(v.vehicle_photos);
 
   const specs = [
     ["Année", String(v.year)],
@@ -79,37 +71,12 @@ export default async function FicheVehicule({
       </Link>
 
       <div className="fiche-grille">
-        {/* Visuel */}
-        <div className="fiche-media">
-          <span className={`badge badge-${v.status}`}>{statut}</span>
-          {img ? (
-            <Image
-              src={img}
-              alt={`${v.make} ${v.model} ${v.year}`}
-              fill
-              sizes="(max-width: 900px) 100vw, 720px"
-              className="fiche-photo"
-              priority
-            />
-          ) : (
-            <svg
-              className="vcard-silhouette"
-              viewBox="0 0 200 90"
-              aria-hidden="true"
-              fill="none"
-            >
-              <path
-                d="M14 62c8 2 164 2 172 0M22 62c-4 0-8-3-8-8 0-6 10-10 22-14 10-10 22-18 40-20 22-2 40 6 54 18 10 2 42 4 48 10 3 3 2 14-4 14"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle cx="58" cy="64" r="12" stroke="currentColor" strokeWidth="2.2" />
-              <circle cx="146" cy="64" r="12" stroke="currentColor" strokeWidth="2.2" />
-            </svg>
-          )}
-        </div>
+        {/* Galerie */}
+        <VehicleGallery
+          photos={photos}
+          alt={`${v.make} ${v.model} ${v.year}`}
+          status={v.status}
+        />
 
         {/* Infos */}
         <div className="fiche-infos">

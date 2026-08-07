@@ -24,3 +24,24 @@ export function primaryPhotoUrl(
     "https://qhgpcrrnglgzonarnkwb.supabase.co";
   return `${base}/storage/v1/object/public/vehicle-photos/${sorted[0].storage_path}`;
 }
+
+/** Toutes les photos, principale d'abord puis par position, en URLs publiques. */
+export function allPhotoUrls(
+  photos: VehiclePhoto[] | null | undefined
+): string[] {
+  if (!photos || photos.length === 0) return [];
+  const base =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ??
+    "https://qhgpcrrnglgzonarnkwb.supabase.co";
+  return [...photos]
+    .sort((a, b) => {
+      const pa = a.is_primary ? 1 : 0;
+      const pb = b.is_primary ? 1 : 0;
+      if (pb !== pa) return pb - pa;
+      return (a.position ?? 0) - (b.position ?? 0);
+    })
+    .map(
+      (p) =>
+        `${base}/storage/v1/object/public/vehicle-photos/${p.storage_path}`
+    );
+}

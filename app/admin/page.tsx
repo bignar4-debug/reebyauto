@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { ADMIN_USER_ID } from "@/lib/admin";
 import SignOutButton from "@/components/admin/SignOutButton";
 import { formatPrix, formatKm } from "@/lib/format";
 
@@ -23,7 +24,7 @@ export default async function AdminDashboard() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/admin/connexion");
+  if (!user || user.id !== ADMIN_USER_ID) redirect("/admin/connexion");
 
   const { data: vehicules } = await supabase
     .from("vehicles")
