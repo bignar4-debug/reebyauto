@@ -854,6 +854,15 @@ h1, h2, h3, h4 {
   color: #d8825f;
   font-size: 0.8rem;
 }
+/* Honeypot anti-spam : hors écran, invisible et inaccessible aux humains. */
+.champ-pot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
 .form .btn {
   margin-top: 26px;
 }

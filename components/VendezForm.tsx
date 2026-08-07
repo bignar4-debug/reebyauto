@@ -25,6 +25,7 @@ function makeSchema(locale: Locale) {
     kilometrage: z.string().optional(),
     prix: z.string().optional(),
     message: z.string().optional(),
+    company: z.string().optional(), // honeypot anti-spam
   });
 }
 
@@ -39,13 +40,33 @@ export default function VendezForm({ locale = "fr" }: { locale?: Locale }) {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   const [envoye, setEnvoye] = useState(false);
+  const [erreur, setErreur] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    // TODO Phase 7 : POST vers une route API -> Resend (courriel) + Supabase (demande).
-    await new Promise((r) => setTimeout(r, 500));
-    console.log("Demande de vente:", data);
-    setEnvoye(true);
-    reset();
+    setErreur(false);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "vendez",
+          name: data.nom,
+          email: data.courriel,
+          phone: data.telephone,
+          vehicle: data.vehicule,
+          year: data.annee,
+          mileage: data.kilometrage,
+          price: data.prix,
+          message: data.message,
+          company: data.company,
+        }),
+      });
+      if (!res.ok) throw new Error("send_failed");
+      setEnvoye(true);
+      reset();
+    } catch {
+      setErreur(true);
+    }
   };
 
   if (envoye) {
@@ -58,6 +79,15 @@ export default function VendezForm({ locale = "fr" }: { locale?: Locale }) {
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+      {/* Honeypot anti-spam : caché aux humains, rempli par les bots. */}
+      <input
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="champ-pot"
+        {...register("company")}
+      />
       <div className="form-grille">
         <div className="champ">
           <label htmlFor="nom">{t(locale, "form.name")}</label>
@@ -130,6 +160,11 @@ export default function VendezForm({ locale = "fr" }: { locale?: Locale }) {
         </div>
       </div>
 
+      {erreur && (
+        <p className="champ-erreur" role="alert">
+          {t(locale, "form.error")}
+        </p>
+      )}
       <button type="submit" className="btn btn-primaire" disabled={isSubmitting}>
         {isSubmitting ? t(locale, "form.sending") : t(locale, "form.send_request")}
       </button>

@@ -21,6 +21,7 @@ function makeSchema(locale: Locale) {
       .email(t(locale, "form.err_email")),
     telephone: z.string().optional(),
     message: z.string().min(5, t(locale, "form.err_message")),
+    company: z.string().optional(), // honeypot anti-spam
   });
 }
 
@@ -35,13 +36,29 @@ export default function ContactForm({ locale = "fr" }: { locale?: Locale }) {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   const [envoye, setEnvoye] = useState(false);
+  const [erreur, setErreur] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    // TODO Phase 7 : envoi via Resend + enregistrement de la demande.
-    await new Promise((r) => setTimeout(r, 500));
-    console.log("Message de contact:", data);
-    setEnvoye(true);
-    reset();
+    setErreur(false);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "contact",
+          name: data.nom,
+          email: data.courriel,
+          phone: data.telephone,
+          message: data.message,
+          company: data.company,
+        }),
+      });
+      if (!res.ok) throw new Error("send_failed");
+      setEnvoye(true);
+      reset();
+    } catch {
+      setErreur(true);
+    }
   };
 
   if (envoye) {
@@ -54,6 +71,15 @@ export default function ContactForm({ locale = "fr" }: { locale?: Locale }) {
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+      {/* Honeypot anti-spam : caché aux humains, rempli par les bots. */}
+      <input
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="champ-pot"
+        {...register("company")}
+      />
       <div className="form-grille">
         <div className="champ">
           <label htmlFor="c-nom">{t(locale, "form.name")}</label>
@@ -93,6 +119,11 @@ export default function ContactForm({ locale = "fr" }: { locale?: Locale }) {
         </div>
       </div>
 
+      {erreur && (
+        <p className="champ-erreur" role="alert">
+          {t(locale, "form.error")}
+        </p>
+      )}
       <button type="submit" className="btn btn-primaire" disabled={isSubmitting}>
         {isSubmitting ? t(locale, "form.sending") : t(locale, "form.send_message")}
       </button>

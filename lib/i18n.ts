@@ -100,6 +100,8 @@ const dict: Record<Locale, Record<string, string>> = {
     "form.err_email": "Courriel invalide.",
     "form.err_vehicle": "Indiquez la marque et le modèle.",
     "form.err_message": "Écrivez-nous quelques mots.",
+    "form.error":
+      "L'envoi a échoué. Réessayez ou appelez-nous au 438 526-4388.",
     "form.success_sell":
       "Merci ! Votre demande a bien été reçue. Jonni vous contactera sous peu au sujet de votre véhicule.",
     "form.success_contact":
@@ -225,6 +227,7 @@ const dict: Record<Locale, Record<string, string>> = {
     "form.err_email": "Invalid email.",
     "form.err_vehicle": "Enter the make and model.",
     "form.err_message": "Write us a few words.",
+    "form.error": "Sending failed. Please try again or call us at 438 526-4388.",
     "form.success_sell":
       "Thank you! Your request has been received. Jonni will contact you soon about your vehicle.",
     "form.success_contact":
