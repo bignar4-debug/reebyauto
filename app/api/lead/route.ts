@@ -25,6 +25,26 @@ const schema = z.object({
   company: z.string().max(200).optional(),
 });
 
+// Limiteur de débit best-effort (par IP, fenêtre fixe). Défense en profondeur
+// contre le spam du formulaire ; l'état vit dans l'instance serverless chaude.
+const RL_WINDOW_MS = 60_000;
+const RL_MAX = 5;
+const rlHits = new Map<string, { count: number; reset: number }>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  if (rlHits.size > 5000) {
+    for (const [k, v] of rlHits) if (now > v.reset) rlHits.delete(k);
+  }
+  const e = rlHits.get(ip);
+  if (!e || now > e.reset) {
+    rlHits.set(ip, { count: 1, reset: now + RL_WINDOW_MS });
+    return false;
+  }
+  e.count += 1;
+  return e.count > RL_MAX;
+}
+
 const clean = (s: string | undefined) =>
   s && s.trim() !== "" ? s.trim() : null;
 
@@ -34,6 +54,17 @@ const esc = (s: string | null) =>
   );
 
 export async function POST(req: Request) {
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown";
+  if (rateLimited(ip)) {
+    return NextResponse.json(
+      { ok: false, error: "rate_limited" },
+      { status: 429 }
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();
