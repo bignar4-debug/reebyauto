@@ -38,6 +38,20 @@ export default function Footer({ locale }: { locale: Locale }) {
           </ul>
         </div>
       </div>
+
+      <div className="pied-bas">
+        <p className="pied-credit">
+          {t(locale, "footer.designed_by")}{" "}
+          <a
+            href="https://vivia-ai.ca"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pied-credit-lien"
+          >
+            Vivia AI
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }

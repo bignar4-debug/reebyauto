@@ -114,7 +114,7 @@ export async function POST(req: Request) {
 
       const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px">
         <h2 style="margin:0 0 4px">${subject}</h2>
-        <p style="margin:0 0 16px;color:#8a8a8f">Reçu depuis reebyauto.ca</p>
+        <p style="margin:0 0 16px;color:#8a8a8f">Reçu depuis reebyauto.com</p>
         <table style="border-collapse:collapse;font-size:15px">${rows}</table>
       </div>`;
 

@@ -129,6 +129,7 @@ const dict: Record<Locale, Record<string, string>> = {
 
     "footer.region": "Grande région de Montréal",
     "footer.contact": "Contact",
+    "footer.designed_by": "Conçu par",
 
     "region.value": "Grande région de Montréal",
   },
@@ -255,6 +256,7 @@ const dict: Record<Locale, Record<string, string>> = {
 
     "footer.region": "Greater Montreal area",
     "footer.contact": "Contact",
+    "footer.designed_by": "Designed by",
 
     "region.value": "Greater Montreal area",
   },

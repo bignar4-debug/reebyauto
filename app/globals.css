@@ -392,6 +392,26 @@ h1, h2, h3, h4 {
     gap: 32px;
   }
 }
+.pied-bas {
+  max-width: var(--max-contenu);
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--ligne);
+}
+.pied-credit {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--gris-2);
+}
+.pied-credit-lien {
+  color: var(--creme-2);
+  font-weight: 600;
+  transition: color 0.16s ease;
+}
+.pied-credit-lien:hover {
+  color: var(--laiton, #b8985a);
+}
 
 /* ============================================================
    ACCUEIL — HERO (asymétrique, aligné à gauche)

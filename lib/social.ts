@@ -2,7 +2,7 @@
 export const CONTACT = {
   telAffiche: "438 526-4388",
   telHref: "tel:+14385264388",
-  courriel: "jonni@reebyauto.ca",
+  courriel: "jonni@reebyauto.com",
   region: "Grande région de Montréal",
 };
 
