@@ -53,6 +53,34 @@ export const CARROSSERIE_OPTIONS = [
   { value: "truck", label: "Camion" },
 ];
 
+// Traduction best-effort des valeurs de fiche courantes (couleur, carburant,
+// transmission) saisies en français, pour l'affichage en anglais.
+const SPEC_FR_EN: Record<string, string> = {
+  // Couleurs
+  jaune: "Yellow", noir: "Black", noire: "Black", blanc: "White",
+  blanche: "White", rouge: "Red", bleu: "Blue", bleue: "Blue",
+  gris: "Grey", grise: "Grey", vert: "Green", verte: "Green",
+  argent: "Silver", orange: "Orange", brun: "Brown", beige: "Beige", or: "Gold",
+  // Carburant
+  essence: "Gasoline", diesel: "Diesel", hybride: "Hybrid",
+  électrique: "Electric", electrique: "Electric",
+  // Transmission
+  manuelle: "Manual", manuel: "Manual", automatique: "Automatic",
+  rapports: "speed", vitesses: "speed",
+};
+
+/** Traduit une valeur de spécification en anglais (mot à mot si besoin). */
+export function specValue(
+  value: string | null | undefined,
+  locale: Locale
+): string {
+  if (!value) return t(locale, "value.na");
+  if (locale !== "en") return value;
+  const whole = SPEC_FR_EN[value.trim().toLowerCase()];
+  if (whole) return whole;
+  return value.replace(/[A-Za-zÀ-ÿ]+/g, (w) => SPEC_FR_EN[w.toLowerCase()] ?? w);
+}
+
 /** "Porsche 911 Carrera S 2021" -> "porsche-911-carrera-s-2021" */
 export function slugify(texte: string): string {
   return texte

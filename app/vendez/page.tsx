@@ -6,7 +6,7 @@ import { t, type Locale } from "@/lib/i18n";
 export const metadata: Metadata = {
   title: "Vendez votre auto · Reeby Auto",
   description:
-    "Confiez la vente de votre véhicule à un courtier. 1 % de commission, aucun risque. Grande région de Montréal.",
+    "Trois forfaits pour vendre votre véhicule : Visibilité, Signature ou Mandat exclusif. Grande région de Montréal.",
 };
 
 type Forfait = {
@@ -17,119 +17,105 @@ type Forfait = {
   populaire: boolean;
   heritage: string | null;
   inclus: string[];
-  ideal: string;
 };
 
 const FORFAITS: Record<Locale, Forfait[]> = {
   fr: [
     {
-      nom: "Essentiel",
-      tagline: "La base gagnante",
-      prix: "1 % de commission",
-      prixNote: "seulement à la vente · aucun frais d'activation",
+      nom: "Visibilité",
+      tagline: "On active votre annonce. Vous gérez la vente.",
+      prix: "50 $",
+      prixNote: "",
       populaire: false,
       heritage: null,
       inclus: [
-        "Évaluation stratégique du véhicule",
-        "Photos professionnelles HD",
-        "Création d'une annonce optimisée",
-        "Diffusion sur toutes les plateformes",
-        "Gestion des appels et messages",
-        "Qualification des acheteurs",
-        "Organisation des visites et essais",
-        "Accompagnement jusqu'à la vente",
+        "Activation de l'annonce sur les plateformes Reeby Auto",
+        "Évaluation du véhicule et stratégie de vente",
+        "Le client fournit ses photos",
+        "Annonce optimisée",
+        "Diffusion sur notre site web et nos réseaux sociaux",
+        "Budget publicitaire au choix",
+        "Le client gère les demandes et la vente",
       ],
-      ideal:
-        "Les propriétaires qui veulent un service efficace, rapide et sans tracas.",
     },
     {
-      nom: "Service Signature",
-      tagline: "La mise en valeur professionnelle",
-      prix: "299 $",
-      prixNote: "valeur de plus de 1 000 $",
-      populaire: true,
-      heritage: "Tout ce qui est inclus dans Essentiel, plus :",
-      inclus: [
-        "Lavage intérieur et extérieur professionnel",
-        "Rapport Carfax",
-        "Vidéo de présentation professionnelle",
-        "Annonce mise en vedette",
-        "Campagne publicitaire ciblée",
-        "Suivi prioritaire des acheteurs qualifiés",
-      ],
-      ideal: "Ceux qui veulent se démarquer et vendre plus rapidement.",
-    },
-    {
-      nom: "Concierge VIP",
-      tagline: "L'expérience haut de gamme",
-      prix: "499 $",
-      prixNote: "valeur de plus de 2 000 $",
+      nom: "Signature",
+      tagline: "Une présentation premium de votre véhicule.",
+      prix: "350 $",
+      prixNote: "",
       populaire: false,
+      heritage: "Tout ce qui est inclus dans Visibilité, plus :",
+      inclus: [
+        "Photos professionnelles",
+        "Vidéo professionnelle du véhicule",
+        "Montage vidéo / Reel",
+        "Mise en vedette sur nos plateformes",
+        "Promotion renforcée sur les réseaux sociaux",
+        "Le client gère les demandes et la vente",
+      ],
+    },
+    {
+      nom: "Mandat exclusif",
+      tagline: "Service complet — nous prenons en charge votre vente de A à Z.",
+      prix: "350 $ + 1 %",
+      prixNote: "Frais de mise en marché + commission au succès",
+      populaire: true,
       heritage: "Tout ce qui est inclus dans Signature, plus :",
       inclus: [
-        "Detailing complet intérieur et extérieur",
-        "Séance photo et vidéo cinématographique",
-        "Prises de vue au drone (si pertinent)",
-        "Campagne publicitaire premium (Facebook, Instagram, Google)",
-        "Réseau privé d'acheteurs sérieux",
-        "Accompagnement VIP personnalisé",
+        "Gestion des demandes",
+        "Qualification des acheteurs",
+        "Planification des rendez-vous",
+        "Accompagnement complet jusqu'à la vente",
       ],
-      ideal: "Les véhicules d'exception, rares ou de collection.",
     },
   ],
   en: [
     {
-      nom: "Essential",
-      tagline: "The winning foundation",
-      prix: "1% commission",
-      prixNote: "only when it sells · no activation fee",
+      nom: "Visibility",
+      tagline: "We activate your listing. You manage the sale.",
+      prix: "$50",
+      prixNote: "",
       populaire: false,
       heritage: null,
       inclus: [
-        "Strategic vehicle appraisal",
-        "Professional HD photos",
-        "Optimized listing creation",
-        "Distribution across every platform",
-        "Handling of calls and messages",
-        "Buyer qualification",
-        "Viewings and test drives arranged",
-        "Support all the way to the sale",
+        "Listing activated on Reeby Auto platforms",
+        "Vehicle appraisal and sales strategy",
+        "You provide the photos",
+        "Optimized listing",
+        "Published on our website and social media",
+        "Advertising budget of your choice",
+        "You handle the inquiries and the sale",
       ],
-      ideal: "Owners who want efficient, fast, hassle-free service.",
     },
     {
-      nom: "Signature Service",
-      tagline: "Professional showcasing",
-      prix: "$299",
-      prixNote: "over $1,000 in value",
-      populaire: true,
-      heritage: "Everything in Essential, plus:",
-      inclus: [
-        "Professional interior and exterior wash",
-        "Carfax report",
-        "Professional presentation video",
-        "Featured listing",
-        "Targeted ad campaign",
-        "Priority follow-up with qualified buyers",
-      ],
-      ideal: "Those who want to stand out and sell faster.",
-    },
-    {
-      nom: "VIP Concierge",
-      tagline: "The premium experience",
-      prix: "$499",
-      prixNote: "over $2,000 in value",
+      nom: "Signature",
+      tagline: "A premium presentation of your vehicle.",
+      prix: "$350",
+      prixNote: "",
       populaire: false,
+      heritage: "Everything in Visibility, plus:",
+      inclus: [
+        "Professional photos",
+        "Professional vehicle video",
+        "Video editing / Reel",
+        "Featured on our platforms",
+        "Boosted social media promotion",
+        "You handle the inquiries and the sale",
+      ],
+    },
+    {
+      nom: "Exclusive Mandate",
+      tagline: "Full service — we handle your sale from A to Z.",
+      prix: "$350 + 1%",
+      prixNote: "Marketing fee + success commission",
+      populaire: true,
       heritage: "Everything in Signature, plus:",
       inclus: [
-        "Full interior and exterior detailing",
-        "Cinematic photo and video session",
-        "Drone footage (when relevant)",
-        "Premium ad campaign (Facebook, Instagram, Google)",
-        "Private network of serious buyers",
-        "Personalized VIP support",
+        "Inquiry management",
+        "Buyer qualification",
+        "Appointment scheduling",
+        "Full support through to the sale",
       ],
-      ideal: "Exceptional, rare or collector vehicles.",
     },
   ],
 };
@@ -179,12 +165,12 @@ export default async function Vendez() {
               {forf.populaire && (
                 <span className="forfait-ruban">{t(locale, "sell.popular")}</span>
               )}
-              <p className="forfait-nom">
-                {t(locale, "forfait.prefix")} {forf.nom}
-              </p>
+              <p className="forfait-nom">{forf.nom}</p>
               <p className="forfait-tagline">{forf.tagline}</p>
               <p className="forfait-prix">{forf.prix}</p>
-              <p className="forfait-prix-note">{forf.prixNote}</p>
+              {forf.prixNote && (
+                <p className="forfait-prix-note">{forf.prixNote}</p>
+              )}
               {forf.heritage && (
                 <p className="forfait-heritage">{forf.heritage}</p>
               )}
@@ -193,10 +179,6 @@ export default async function Vendez() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <p className="forfait-ideal">
-                <span>{t(locale, "forfait.ideal")}</span>
-                {forf.ideal}
-              </p>
             </div>
           ))}
         </div>

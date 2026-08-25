@@ -29,6 +29,7 @@ type VehicleRow = {
   exterior_color?: string | null;
   interior_color?: string | null;
   description?: string | null;
+  description_en?: string | null;
   status?: string;
   published?: boolean;
   featured?: boolean;
@@ -65,6 +66,7 @@ export default function VehicleEditor({
     exterior_color: str(vehicle?.exterior_color),
     interior_color: str(vehicle?.interior_color),
     description: str(vehicle?.description),
+    description_en: str(vehicle?.description_en),
     slug: str(vehicle?.slug),
     status: str(vehicle?.status) || "available",
     published: vehicle?.published ?? true,
@@ -109,6 +111,7 @@ export default function VehicleEditor({
       exterior_color: f.exterior_color.trim() || null,
       interior_color: f.interior_color.trim() || null,
       description: f.description.trim() || null,
+      description_en: f.description_en.trim() || null,
       status: f.status,
       published: f.published,
       featured: f.featured,
@@ -297,12 +300,23 @@ export default function VehicleEditor({
           />
           <div className="champ champ-large">
             <label>
-              Description (1re ligne = intro, lignes suivantes = caractéristiques)
+              Description — français (1re ligne = intro, lignes suivantes =
+              caractéristiques)
             </label>
             <textarea
               rows={7}
               value={f.description}
               onChange={(e) => set("description", e.target.value)}
+            />
+          </div>
+          <div className="champ champ-large">
+            <label>
+              Description — anglais (laisser vide pour afficher le français)
+            </label>
+            <textarea
+              rows={7}
+              value={f.description_en}
+              onChange={(e) => set("description_en", e.target.value)}
             />
           </div>
           <div className="champ champ-large editor-toggles">

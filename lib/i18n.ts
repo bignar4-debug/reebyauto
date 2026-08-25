@@ -53,9 +53,8 @@ const dict: Record<Locale, Record<string, string>> = {
     "inv.empty": "Aucun véhicule pour le moment. Revenez bientôt.",
 
     "sell.eyebrow": "Vendez votre auto",
-    "sell.title": "Confiez-nous la vente, on s'occupe du reste.",
-    "sell.sub":
-      "Un accompagnement complet par un courtier. 1 % de commission, aucun risque.",
+    "sell.title": "Vendez à votre façon",
+    "sell.sub": "Choisissez l'option qui vous convient.",
     "sell.step1_title": "Client contacté",
     "sell.step1_text":
       "On vous rencontre, on évalue votre véhicule et on établit ensemble le juste prix du marché.",
@@ -64,17 +63,17 @@ const dict: Record<Locale, Record<string, string>> = {
       "Photos soignées, annonce diffusée sur les meilleures plateformes et mise de l'avant sur les réseaux sociaux.",
     "sell.step3_title": "Vente conclue",
     "sell.step3_text":
-      "On filtre les acheteurs, on négocie et on vous accompagne jusqu'à la signature. Seulement 1 % de commission.",
+      "On filtre les acheteurs, on négocie et on vous accompagne jusqu'à la signature.",
     "sell.packages_eyebrow": "Nos forfaits",
     "sell.packages_title": "Choisissez votre formule",
     "sell.packages_note":
-      "Aucun frais d'avance, aucun risque. 1 % de commission seulement à la vente du véhicule.",
+      "Frais de mise en marché selon le forfait choisi. Commission au succès uniquement sur le Mandat exclusif.",
     "sell.form_title": "Parlez-nous de votre véhicule",
     "sell.form_intro":
       "Remplissez ce formulaire et Jonni vous recontactera rapidement.",
     "forfait.prefix": "Forfait",
     "forfait.ideal": "Idéal pour",
-    "sell.popular": "Le plus populaire",
+    "sell.popular": "Recommandé",
 
     "gallery.zoom": "Agrandir la photo",
     "gallery.prev": "Photo précédente",
@@ -181,9 +180,8 @@ const dict: Record<Locale, Record<string, string>> = {
     "inv.empty": "No vehicles yet. Check back soon.",
 
     "sell.eyebrow": "Sell your car",
-    "sell.title": "Leave the sale to us, we handle the rest.",
-    "sell.sub":
-      "Full support from a broker. 1% commission, no risk.",
+    "sell.title": "Sell your way",
+    "sell.sub": "Choose the option that suits you.",
     "sell.step1_title": "Client contacted",
     "sell.step1_text":
       "We meet with you, appraise your vehicle and set the right market price together.",
@@ -192,17 +190,17 @@ const dict: Record<Locale, Record<string, string>> = {
       "Polished photos, your listing published on the best platforms and promoted on social media.",
     "sell.step3_title": "Sale closed",
     "sell.step3_text":
-      "We screen buyers, negotiate and support you through to signing. Only 1% commission.",
+      "We screen buyers, negotiate and support you through to signing.",
     "sell.packages_eyebrow": "Our packages",
     "sell.packages_title": "Choose your package",
     "sell.packages_note":
-      "No upfront fees, no risk. 1% commission only when the vehicle sells.",
+      "Marketing fee depends on the package you choose. Success commission only on the Exclusive Mandate.",
     "sell.form_title": "Tell us about your vehicle",
     "sell.form_intro":
       "Fill out this form and Jonni will get back to you shortly.",
     "forfait.prefix": "Package",
     "forfait.ideal": "Ideal for",
-    "sell.popular": "Most popular",
+    "sell.popular": "Recommended",
 
     "gallery.zoom": "Enlarge photo",
     "gallery.prev": "Previous photo",

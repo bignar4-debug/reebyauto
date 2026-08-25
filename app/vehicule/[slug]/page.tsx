@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { allPhotoUrls } from "@/lib/photos";
-import { formatPrix, formatKm, carrosserieLabel } from "@/lib/format";
+import { formatPrix, formatKm, carrosserieLabel, specValue } from "@/lib/format";
 import VehicleGallery from "@/components/VehicleGallery";
 import { getLocale } from "@/lib/getLocale";
 import { t } from "@/lib/i18n";
@@ -43,22 +43,27 @@ export default async function FicheVehicule({
   if (!v) notFound();
 
   const photos = allPhotoUrls(v.vehicle_photos);
-  const na = t(locale, "value.na");
 
   const specs = [
     [t(locale, "fiche.year"), String(v.year)],
     [t(locale, "fiche.mileage"), formatKm(v.mileage_km, locale)],
     [t(locale, "fiche.body"), carrosserieLabel(v.body_type, locale)],
-    [t(locale, "fiche.transmission"), v.transmission ?? na],
-    [t(locale, "fiche.drivetrain"), v.drivetrain ?? na],
-    [t(locale, "fiche.fuel"), v.fuel ?? na],
-    [t(locale, "fiche.ext_color"), v.exterior_color ?? na],
-    [t(locale, "fiche.int_color"), v.interior_color ?? na],
+    [t(locale, "fiche.transmission"), specValue(v.transmission, locale)],
+    [t(locale, "fiche.drivetrain"), specValue(v.drivetrain, locale)],
+    [t(locale, "fiche.fuel"), specValue(v.fuel, locale)],
+    [t(locale, "fiche.ext_color"), specValue(v.exterior_color, locale)],
+    [t(locale, "fiche.int_color"), specValue(v.interior_color, locale)],
   ];
 
-  // Description : 1re ligne = phrase d'intro, les suivantes = caractéristiques (rangées).
+  // Description : anglais si dispo en mode EN, sinon la version française.
+  // 1re ligne = phrase d'intro, les suivantes = caractéristiques (rangées).
+  const descEn =
+    typeof v.description_en === "string" && v.description_en.trim()
+      ? v.description_en
+      : null;
+  const descSource = locale === "en" ? descEn ?? v.description : v.description;
   const descText: string =
-    typeof v.description === "string" ? v.description : "";
+    typeof descSource === "string" ? descSource : "";
   const descLignes: string[] = descText
     .split("\n")
     .map((l) => l.trim())
