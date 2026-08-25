@@ -1588,6 +1588,31 @@ a.contact-val:hover {
   margin-top: 16px;
   color: var(--laiton-clair);
 }
+.editor-label-rangee {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.editor-traduire {
+  background: transparent;
+  border: 1px solid var(--ligne-2);
+  color: var(--creme-2);
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+.editor-traduire:hover:not(:disabled) {
+  border-color: var(--laiton, #b8985a);
+  color: var(--laiton, #b8985a);
+}
+.editor-traduire:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
 .editor-barre {
   display: flex;
   gap: 12px;

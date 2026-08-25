@@ -77,9 +77,44 @@ export default function VehicleEditor({
   const [msg, setMsg] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [translating, setTranslating] = useState(false);
 
   const set = (k: keyof typeof f, v: string | boolean) =>
     setF((prev) => ({ ...prev, [k]: v }));
+
+  // Traduit un texte FR -> EN via la route admin. "" si indisponible.
+  async function translateFr(fr: string): Promise<string> {
+    try {
+      const res = await fetch("/api/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: fr }),
+      });
+      const data = await res.json();
+      return data?.ok && typeof data.text === "string" ? data.text : "";
+    } catch {
+      return "";
+    }
+  }
+
+  async function handleTranslate() {
+    if (!f.description.trim()) {
+      setMsg("Écrivez d'abord la description en français.");
+      return;
+    }
+    setTranslating(true);
+    setMsg(null);
+    const en = await translateFr(f.description);
+    setTranslating(false);
+    if (en) {
+      set("description_en", en);
+      setMsg("Traduction anglaise générée. Vérifiez au besoin, puis enregistrez.");
+    } else {
+      setMsg(
+        "Traduction automatique indisponible pour l'instant. Le français sera affiché en anglais."
+      );
+    }
+  }
 
   const nbOrNull = (s: string) => {
     const t = s.trim();
@@ -97,6 +132,15 @@ export default function VehicleEditor({
     setSaving(true);
     const slug =
       f.slug.trim() || slugify(`${f.make} ${f.model} ${f.year}`);
+
+    // Anglais : si laissé vide, on le génère automatiquement depuis le français
+    // (aucune double saisie). Si la traduction échoue, on garde null (repli FR).
+    let descEn = f.description_en.trim();
+    if (!descEn && f.description.trim()) {
+      descEn = await translateFr(f.description);
+      if (descEn) set("description_en", descEn);
+    }
+
     const payload = {
       slug,
       make: f.make.trim(),
@@ -111,7 +155,7 @@ export default function VehicleEditor({
       exterior_color: f.exterior_color.trim() || null,
       interior_color: f.interior_color.trim() || null,
       description: f.description.trim() || null,
-      description_en: f.description_en.trim() || null,
+      description_en: descEn || null,
       status: f.status,
       published: f.published,
       featured: f.featured,
@@ -310,13 +354,24 @@ export default function VehicleEditor({
             />
           </div>
           <div className="champ champ-large">
-            <label>
-              Description — anglais (laisser vide pour afficher le français)
-            </label>
+            <div className="editor-label-rangee">
+              <label>
+                Description — anglais (générée automatiquement si laissée vide)
+              </label>
+              <button
+                type="button"
+                className="editor-traduire"
+                onClick={handleTranslate}
+                disabled={translating}
+              >
+                {translating ? "Traduction…" : "⇄ Traduire depuis le français"}
+              </button>
+            </div>
             <textarea
               rows={7}
               value={f.description_en}
               onChange={(e) => set("description_en", e.target.value)}
+              placeholder="Laissez vide : l'anglais sera généré à partir du français à l'enregistrement."
             />
           </div>
           <div className="champ champ-large editor-toggles">
