@@ -1710,3 +1710,237 @@ a.contact-val:hover {
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================================
+   VENDEZ — Offre principale + options (nouveau modèle)
+   ============================================================ */
+.offre-principale {
+  max-width: var(--max-contenu);
+  margin: 8px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 40px;
+  align-items: center;
+  padding: 40px;
+}
+.offre-prix {
+  text-align: center;
+  border-right: 1px solid var(--ligne);
+  padding-right: 32px;
+}
+.offre-avance {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--creme);
+}
+.offre-pourcent {
+  margin: 6px 0 0;
+  font-family: var(--font-antonio), sans-serif;
+  font-size: clamp(4.5rem, 14vw, 7rem);
+  line-height: 0.95;
+  color: var(--laiton-clair);
+}
+.offre-succes {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--creme-2);
+}
+.offre-condition {
+  margin: 14px 0 0;
+  font-size: 0.85rem;
+  color: var(--gris-2);
+}
+.offre-inclus-titre {
+  margin: 0 0 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--gris-2);
+}
+.offre-inclus {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.offre-inclus li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--creme);
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+.offre-inclus li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--laiton-clair);
+  font-weight: 700;
+}
+@media (max-width: 760px) {
+  .offre-principale {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 28px 20px;
+  }
+  .offre-prix {
+    border-right: none;
+    border-bottom: 1px solid var(--ligne);
+    padding-right: 0;
+    padding-bottom: 24px;
+  }
+}
+
+.options {
+  max-width: var(--max-contenu);
+  margin: 48px auto 0;
+}
+.options-titre {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin: 0 0 20px;
+}
+.options-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.option-card {
+  padding: 28px;
+}
+.option-eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gris-2);
+}
+.option-prix {
+  margin: 8px 0 16px;
+  font-family: var(--font-antonio), sans-serif;
+  font-size: 2rem;
+  color: var(--laiton-clair);
+}
+.option-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.option-liste li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--creme);
+  font-size: 0.95rem;
+}
+.option-liste li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--laiton-clair);
+}
+.option-desc {
+  margin: 0;
+  color: var(--creme-2);
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .options-grille {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   FICHE — actions (Faire une offre)
+   ============================================================ */
+.fiche-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.fiche-questions {
+  color: var(--creme-2);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.fiche-questions:hover {
+  color: var(--creme);
+}
+
+/* ============================================================
+   MODALE « Faire une offre »
+   ============================================================ */
+.offre-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px;
+  overflow-y: auto;
+}
+.offre-modale {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+  background: var(--surface);
+  border: 1px solid var(--ligne-2);
+  border-radius: 12px;
+  padding: 32px;
+}
+.offre-fermer {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid var(--ligne-2);
+  border-radius: 6px;
+  color: var(--creme-2);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.offre-fermer:hover {
+  color: var(--creme);
+  border-color: var(--creme);
+}
+.offre-surtitre {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gris-2);
+}
+.offre-vehicule {
+  margin: 4px 0 22px;
+  font-family: var(--font-antonio), sans-serif;
+  font-size: 1.5rem;
+  color: var(--creme);
+}
+.offre-envoyer {
+  width: 100%;
+  margin-top: 4px;
+}
+@media (max-width: 520px) {
+  .offre-modale {
+    padding: 24px 18px;
+  }
+}

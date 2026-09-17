@@ -6,136 +6,102 @@ import { t, type Locale } from "@/lib/i18n";
 export const metadata: Metadata = {
   title: "Vendez votre auto · Reeby Auto",
   description:
-    "Trois forfaits pour vendre votre véhicule : Visibilité, Signature ou Mandat exclusif. Grande région de Montréal.",
+    "Aucun frais à l'avance, 1 % au succès seulement si l'acheteur provient de Reeby Auto. Options Signature et Promotion. Grande région de Montréal.",
 };
 
-type Forfait = {
-  nom: string;
-  tagline: string;
-  prix: string;
-  prixNote: string;
-  populaire: boolean;
-  heritage: string | null;
-  inclus: string[];
-};
-
-const FORFAITS: Record<Locale, Forfait[]> = {
+const INCLUS: Record<Locale, string[]> = {
   fr: [
-    {
-      nom: "Visibilité",
-      tagline: "On active votre annonce. Vous gérez la vente.",
-      prix: "50 $",
-      prixNote: "",
-      populaire: false,
-      heritage: null,
-      inclus: [
-        "Activation de l'annonce sur les plateformes Reeby Auto",
-        "Évaluation du véhicule et stratégie de vente",
-        "Le client fournit ses photos",
-        "Annonce optimisée",
-        "Diffusion sur notre site web et nos réseaux sociaux",
-        "Budget publicitaire au choix",
-        "Le client gère les demandes et la vente",
-      ],
-    },
-    {
-      nom: "Signature",
-      tagline: "Une présentation premium de votre véhicule.",
-      prix: "350 $",
-      prixNote: "",
-      populaire: false,
-      heritage: "Tout ce qui est inclus dans Visibilité, plus :",
-      inclus: [
-        "Photos professionnelles",
-        "Vidéo professionnelle du véhicule",
-        "Montage vidéo / Reel",
-        "Mise en vedette sur nos plateformes",
-        "Promotion renforcée sur les réseaux sociaux",
-        "Le client gère les demandes et la vente",
-      ],
-    },
-    {
-      nom: "Mandat exclusif",
-      tagline: "Service complet — nous prenons en charge votre vente de A à Z.",
-      prix: "350 $ + 1 %",
-      prixNote: "Frais de mise en marché + commission au succès",
-      populaire: true,
-      heritage: "Tout ce qui est inclus dans Signature, plus :",
-      inclus: [
-        "Gestion des demandes",
-        "Qualification des acheteurs",
-        "Planification des rendez-vous",
-        "Accompagnement complet jusqu'à la vente",
-      ],
-    },
+    "Création et optimisation de l'annonce",
+    "Publication sur reebyauto.com",
+    "Diffusion sur nos plateformes et réseaux sociaux",
+    "Qualification des acheteurs provenant de Reeby Auto",
+    "Transmission des offres au vendeur",
+    "Aide à la négociation",
+    "Accompagnement jusqu'à la transaction",
   ],
   en: [
-    {
-      nom: "Visibility",
-      tagline: "We activate your listing. You manage the sale.",
-      prix: "$50",
-      prixNote: "",
-      populaire: false,
-      heritage: null,
-      inclus: [
-        "Listing activated on Reeby Auto platforms",
-        "Vehicle appraisal and sales strategy",
-        "You provide the photos",
-        "Optimized listing",
-        "Published on our website and social media",
-        "Advertising budget of your choice",
-        "You handle the inquiries and the sale",
-      ],
-    },
-    {
-      nom: "Signature",
-      tagline: "A premium presentation of your vehicle.",
-      prix: "$350",
-      prixNote: "",
-      populaire: false,
-      heritage: "Everything in Visibility, plus:",
-      inclus: [
-        "Professional photos",
-        "Professional vehicle video",
-        "Video editing / Reel",
-        "Featured on our platforms",
-        "Boosted social media promotion",
-        "You handle the inquiries and the sale",
-      ],
-    },
-    {
-      nom: "Exclusive Mandate",
-      tagline: "Full service — we handle your sale from A to Z.",
-      prix: "$350 + 1%",
-      prixNote: "Marketing fee + success commission",
-      populaire: true,
-      heritage: "Everything in Signature, plus:",
-      inclus: [
-        "Inquiry management",
-        "Buyer qualification",
-        "Appointment scheduling",
-        "Full support through to the sale",
-      ],
-    },
+    "Listing creation and optimization",
+    "Published on reebyauto.com",
+    "Promotion across our platforms and social media",
+    "Qualification of buyers from Reeby Auto",
+    "Offers presented to the seller",
+    "Negotiation assistance",
+    "Support through the transaction",
+  ],
+};
+
+const SIGNATURE: Record<Locale, string[]> = {
+  fr: [
+    "Photos professionnelles",
+    "Vidéo professionnelle",
+    "Montage Reel",
+    "Contenu optimisé pour les réseaux sociaux",
+  ],
+  en: [
+    "Professional photos",
+    "Professional video",
+    "Reel editing",
+    "Content optimized for social media",
   ],
 };
 
 export default async function Vendez() {
   const locale = await getLocale();
+  const inclus = INCLUS[locale];
+  const signature = SIGNATURE[locale];
+  const signaturePrix = locale === "en" ? "+$350" : "+350 $";
   const etapes = [
     { num: "01", titre: t(locale, "sell.step1_title"), texte: t(locale, "sell.step1_text") },
     { num: "02", titre: t(locale, "sell.step2_title"), texte: t(locale, "sell.step2_text") },
     { num: "03", titre: t(locale, "sell.step3_title"), texte: t(locale, "sell.step3_text") },
   ];
-  const forfaits = FORFAITS[locale];
 
   return (
     <div className="contenu page">
       <header className="page-tete">
         <p className="surtitre">{t(locale, "sell.eyebrow")}</p>
-        <h1 className="page-titre display">{t(locale, "sell.title")}</h1>
-        <p className="page-sous">{t(locale, "sell.sub")}</p>
+        <h1 className="page-titre display">{t(locale, "sell.hero_title")}</h1>
+        <p className="page-sous">{t(locale, "sell.hero_sub")}</p>
       </header>
+
+      {/* Offre principale : 0 $ à l'avance, 1 % au succès */}
+      <section className="offre-principale panneau" aria-label={t(locale, "sell.eyebrow")}>
+        <div className="offre-prix">
+          <p className="offre-avance">{t(locale, "sell.offer_upfront")}</p>
+          <p className="offre-pourcent">1&nbsp;%</p>
+          <p className="offre-succes">{t(locale, "sell.offer_success")}</p>
+          <p className="offre-condition">{t(locale, "sell.offer_condition")}</p>
+        </div>
+        <div className="offre-inclus-bloc">
+          <p className="offre-inclus-titre">{t(locale, "sell.offer_includes")}</p>
+          <ul className="offre-inclus">
+            {inclus.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Options supplémentaires */}
+      <section className="options" aria-label={t(locale, "sell.options_title")}>
+        <h2 className="options-titre display">{t(locale, "sell.options_title")}</h2>
+        <div className="options-grille">
+          <div className="option-card panneau">
+            <p className="option-eyebrow">{t(locale, "sell.opt_signature")}</p>
+            <p className="option-prix">{signaturePrix}</p>
+            <ul className="option-liste">
+              {signature.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="option-card panneau">
+            <p className="option-eyebrow">{t(locale, "sell.opt_promotion")}</p>
+            <p className="option-prix">{t(locale, "sell.opt_promotion_price")}</p>
+            <p className="option-desc">{t(locale, "sell.opt_promotion_desc")}</p>
+          </div>
+        </div>
+      </section>
 
       {/* Processus en 3 étapes */}
       <section className="process" aria-label={t(locale, "sell.eyebrow")}>
@@ -146,43 +112,6 @@ export default async function Vendez() {
             <p className="etape-texte">{e.texte}</p>
           </div>
         ))}
-      </section>
-
-      {/* Forfaits de services */}
-      <section className="forfaits" aria-label={t(locale, "sell.packages_eyebrow")}>
-        <header className="forfaits-tete">
-          <p className="surtitre">{t(locale, "sell.packages_eyebrow")}</p>
-          <h2 className="forfaits-titre display">
-            {t(locale, "sell.packages_title")}
-          </h2>
-        </header>
-        <div className="forfaits-grille">
-          {forfaits.map((forf) => (
-            <div
-              key={forf.nom}
-              className={`forfait panneau ${forf.populaire ? "forfait--populaire" : ""}`}
-            >
-              {forf.populaire && (
-                <span className="forfait-ruban">{t(locale, "sell.popular")}</span>
-              )}
-              <p className="forfait-nom">{forf.nom}</p>
-              <p className="forfait-tagline">{forf.tagline}</p>
-              <p className="forfait-prix">{forf.prix}</p>
-              {forf.prixNote && (
-                <p className="forfait-prix-note">{forf.prixNote}</p>
-              )}
-              {forf.heritage && (
-                <p className="forfait-heritage">{forf.heritage}</p>
-              )}
-              <ul className="forfait-inclus">
-                {forf.inclus.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <p className="forfaits-note">{t(locale, "sell.packages_note")}</p>
       </section>
 
       {/* Formulaire */}

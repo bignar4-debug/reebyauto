@@ -12,7 +12,7 @@ export const runtime = "nodejs";
  * qu'aucune demande ne soit perdue même avant la configuration du courriel.
  */
 const schema = z.object({
-  type: z.enum(["contact", "vendez"]),
+  type: z.enum(["contact", "vendez", "offre"]),
   name: z.string().min(1).max(200),
   email: z.string().max(320).optional(),
   phone: z.string().max(60).optional(),
@@ -21,6 +21,9 @@ const schema = z.object({
   mileage: z.string().max(40).optional(),
   price: z.string().max(40).optional(),
   message: z.string().max(5000).optional(),
+  // Offre sur un véhicule
+  offer_amount: z.string().max(40).optional(),
+  vehicle_id: z.string().uuid().optional(),
   // Honeypot anti-spam : champ caché qui doit rester vide.
   company: z.string().max(200).optional(),
 });
@@ -93,6 +96,8 @@ export async function POST(req: Request) {
     mileage: clean(d.mileage),
     price: clean(d.price),
     message: clean(d.message),
+    offer_amount: clean(d.offer_amount),
+    vehicle_id: d.vehicle_id ?? null,
   };
 
   let saved = false;
@@ -117,17 +122,28 @@ export async function POST(req: Request) {
       const from =
         process.env.LEAD_FROM_EMAIL ?? "Reeby Auto <onboarding@resend.dev>";
 
-      const subject =
+      const typeLabel =
         d.type === "vendez"
-          ? `Nouvelle demande de vente — ${lead.vehicle ?? lead.name}`
-          : `Nouveau message — ${lead.name}`;
+          ? "Vendez votre auto"
+          : d.type === "offre"
+            ? "Offre sur un véhicule"
+            : "Contact";
+      const subject =
+        d.type === "offre"
+          ? `Nouvelle OFFRE — ${lead.vehicle ?? "véhicule"}${
+              lead.offer_amount ? ` — ${lead.offer_amount}` : ""
+            }`
+          : d.type === "vendez"
+            ? `Nouvelle demande de vente — ${lead.vehicle ?? lead.name}`
+            : `Nouveau message — ${lead.name}`;
 
       const champs: [string, string | null][] = [
-        ["Type", d.type === "vendez" ? "Vendez votre auto" : "Contact"],
+        ["Type", typeLabel],
+        ["Véhicule", lead.vehicle],
+        ["Montant de l'offre", lead.offer_amount],
         ["Nom", lead.name],
         ["Courriel", lead.email],
         ["Téléphone", lead.phone],
-        ["Véhicule", lead.vehicle],
         ["Année", lead.year],
         ["Kilométrage", lead.mileage],
         ["Prix demandé", lead.price],

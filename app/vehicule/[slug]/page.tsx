@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { allPhotoUrls } from "@/lib/photos";
 import { formatPrix, formatKm, carrosserieLabel, specValue } from "@/lib/format";
 import VehicleGallery from "@/components/VehicleGallery";
+import OffreButton from "@/components/OffreButton";
 import { getLocale } from "@/lib/getLocale";
 import { t } from "@/lib/i18n";
 
@@ -104,8 +105,13 @@ export default async function FicheVehicule({
           )}
 
           <div className="fiche-actions">
-            <Link href="/contact" className="btn btn-primaire">
-              {t(locale, "fiche.cta")}
+            <OffreButton
+              vehicleId={v.id}
+              vehicleLabel={`${v.make} ${v.model} ${v.year}`}
+              locale={locale}
+            />
+            <Link href="/contact" className="fiche-questions">
+              {t(locale, "offer.questions")}
             </Link>
           </div>
         </div>
