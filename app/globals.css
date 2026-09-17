@@ -2009,3 +2009,13 @@ a.contact-val:hover {
   padding: 1.1em 2.6em;
   font-size: 1.06rem;
 }
+
+/* Résumé fiche : léger décalage vers le haut pour centrer sur la grande photo */
+.fiche-infos {
+  transform: translateY(-40px);
+}
+@media (max-width: 900px) {
+  .fiche-infos {
+    transform: none;
+  }
+}

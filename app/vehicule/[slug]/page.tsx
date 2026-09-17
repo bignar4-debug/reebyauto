@@ -64,12 +64,11 @@ export default async function FicheVehicule({
   const descSource = locale === "en" ? descEn ?? v.description : v.description;
   const descText: string =
     typeof descSource === "string" ? descSource : "";
-  const descLignes: string[] = descText
+  // Toutes les lignes de la description vont dans la section Équipements.
+  const descPoints: string[] = descText
     .split("\n")
     .map((l) => l.trim())
     .filter(Boolean);
-  const descLead = descLignes[0] ?? null;
-  const descPoints = descLignes.slice(1);
 
   return (
     <div className="contenu page fiche">
@@ -104,8 +103,6 @@ export default async function FicheVehicule({
               {t(locale, "offer.questions")}
             </Link>
           </div>
-
-          {descLead && <p className="fiche-lead">{descLead}</p>}
         </div>
       </div>
 
