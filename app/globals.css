@@ -991,7 +991,7 @@ h1, h2, h3, h4 {
   display: grid;
   grid-template-columns: 1.45fr 1fr;
   gap: 28px;
-  align-items: start;
+  align-items: center;
 }
 .fiche-media {
   position: relative;
@@ -2002,4 +2002,10 @@ a.contact-val:hover {
   .equip-grille {
     columns: 1;
   }
+}
+
+/* Bouton « Faire une offre » plus grand sur la fiche */
+.fiche-actions .btn-primaire {
+  padding: 1.1em 2.6em;
+  font-size: 1.06rem;
 }
