@@ -46,7 +46,6 @@ export default async function FicheVehicule({
   const photos = allPhotoUrls(v.vehicle_photos);
 
   const specs = [
-    [t(locale, "fiche.year"), String(v.year)],
     [t(locale, "fiche.mileage"), formatKm(v.mileage_km, locale)],
     [t(locale, "fiche.body"), carrosserieLabel(v.body_type, locale)],
     [t(locale, "fiche.transmission"), specValue(v.transmission, locale)],
@@ -91,7 +90,7 @@ export default async function FicheVehicule({
         <div className="fiche-infos">
           <p className="surtitre">{carrosserieLabel(v.body_type, locale)}</p>
           <h1 className="fiche-titre">
-            {v.make} {v.model}
+            {v.make} {v.model} {v.year}
           </h1>
           <p className="fiche-prix mono">{formatPrix(v.price, locale)}</p>
 
@@ -107,18 +106,12 @@ export default async function FicheVehicule({
           </div>
 
           {descLead && <p className="fiche-lead">{descLead}</p>}
-          {descPoints.length > 0 && (
-            <ul className="fiche-points">
-              {descPoints.map((point, i) => (
-                <li key={i}>{point}</li>
-              ))}
-            </ul>
-          )}
         </div>
       </div>
 
       {/* Spécifications */}
-      <section className="fiche-specs" aria-label="Spécifications">
+      <section className="fiche-specs" aria-label={t(locale, "fiche.specs_title")}>
+        <h2 className="fiche-section-titre">{t(locale, "fiche.specs_title")}</h2>
         <dl className="specs-grille">
           {specs.map(([label, val]) => (
             <div key={label} className="spec">
@@ -128,6 +121,25 @@ export default async function FicheVehicule({
           ))}
         </dl>
       </section>
+
+      {/* Équipements / détails (issus de la description) */}
+      {descPoints.length > 0 && (
+        <section
+          className="fiche-equip"
+          aria-label={t(locale, "fiche.equipment_title")}
+        >
+          <h2 className="fiche-section-titre">
+            {t(locale, "fiche.equipment_title")}
+          </h2>
+          <ul className="equip-grille">
+            {descPoints.map((point, i) => (
+              <li key={i} className={point.length > 55 ? "equip-long" : ""}>
+                {point}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

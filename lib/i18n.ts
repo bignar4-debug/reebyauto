@@ -45,6 +45,8 @@ const dict: Record<Locale, Record<string, string>> = {
     "fiche.ext_color": "Couleur extérieure",
     "fiche.int_color": "Couleur intérieure",
     "fiche.cta": "Demander de l'information",
+    "fiche.specs_title": "Spécifications",
+    "fiche.equipment_title": "Équipements",
 
     "inv.eyebrow": "Inventaire",
     "inv.title": "Notre inventaire",
@@ -194,6 +196,8 @@ const dict: Record<Locale, Record<string, string>> = {
     "fiche.ext_color": "Exterior color",
     "fiche.int_color": "Interior color",
     "fiche.cta": "Request information",
+    "fiche.specs_title": "Specifications",
+    "fiche.equipment_title": "Features",
 
     "inv.eyebrow": "Inventory",
     "inv.title": "Our inventory",

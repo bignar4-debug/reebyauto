@@ -1944,3 +1944,62 @@ a.contact-val:hover {
     padding: 24px 18px;
   }
 }
+
+/* ============================================================
+   FICHE — sections Spécifications / Équipements (style concessionnaire)
+   ============================================================ */
+.fiche-section-titre {
+  margin: 0 0 20px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ligne);
+}
+.fiche-equip {
+  margin-top: 44px;
+}
+.equip-grille {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 3;
+  column-gap: 40px;
+}
+.equip-grille li {
+  break-inside: avoid;
+  position: relative;
+  padding: 9px 0 9px 24px;
+  border-bottom: 1px solid var(--ligne);
+  color: var(--creme);
+  font-size: 0.96rem;
+  line-height: 1.4;
+}
+.equip-grille li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  color: var(--laiton-clair);
+  font-weight: 700;
+}
+.equip-grille li.equip-long {
+  column-span: all;
+  padding-left: 0;
+  border-bottom: none;
+  color: var(--creme-2);
+  line-height: 1.65;
+}
+.equip-grille li.equip-long::before {
+  content: none;
+}
+@media (max-width: 900px) {
+  .equip-grille {
+    columns: 2;
+  }
+}
+@media (max-width: 560px) {
+  .equip-grille {
+    columns: 1;
+  }
+}
