@@ -95,15 +95,6 @@ export default async function FicheVehicule({
           </h1>
           <p className="fiche-prix mono">{formatPrix(v.price, locale)}</p>
 
-          {descLead && <p className="fiche-lead">{descLead}</p>}
-          {descPoints.length > 0 && (
-            <ul className="fiche-points">
-              {descPoints.map((point, i) => (
-                <li key={i}>{point}</li>
-              ))}
-            </ul>
-          )}
-
           <div className="fiche-actions">
             <OffreButton
               vehicleId={v.id}
@@ -114,6 +105,15 @@ export default async function FicheVehicule({
               {t(locale, "offer.questions")}
             </Link>
           </div>
+
+          {descLead && <p className="fiche-lead">{descLead}</p>}
+          {descPoints.length > 0 && (
+            <ul className="fiche-points">
+              {descPoints.map((point, i) => (
+                <li key={i}>{point}</li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
 
