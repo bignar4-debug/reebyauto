@@ -1194,6 +1194,9 @@ a.contact-val:hover {
 /* ============================================================
    GALERIE PHOTOS (fiche)
    ============================================================ */
+.gallery {
+  min-width: 0;
+}
 .gallery-main {
   position: relative;
   aspect-ratio: 16 / 11;
@@ -1253,24 +1256,52 @@ a.contact-val:hover {
   display: flex;
   gap: 10px;
   margin-top: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ligne-2) transparent;
+  padding-bottom: 6px;
+}
+.gallery-vignettes::-webkit-scrollbar {
+  height: 6px;
+}
+.gallery-vignettes::-webkit-scrollbar-thumb {
+  background: var(--ligne-2);
+  border-radius: 999px;
 }
 .gallery-vignette {
   position: relative;
-  width: 92px;
-  height: 66px;
+  flex: 0 0 auto;
+  width: 104px;
+  height: 74px;
+  scroll-snap-align: center;
   border-radius: var(--r);
   overflow: hidden;
   border: 1px solid var(--ligne-2);
   cursor: pointer;
   background: #0e0e10;
   padding: 0;
+  opacity: 0.55;
+  transition: opacity 0.16s ease, border-color 0.16s ease;
+}
+.gallery-vignette:hover {
+  opacity: 1;
 }
 .gallery-vignette.active {
   border-color: var(--laiton);
+  opacity: 1;
 }
 .gallery-vignette img {
   object-fit: cover;
+}
+@media (max-width: 560px) {
+  .gallery-vignette {
+    width: calc((100% - 20px) / 3);
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
 }
 
 /* Plein écran */

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { t, type Locale } from "@/lib/i18n";
 
 function Silhouette() {
@@ -33,6 +33,7 @@ export default function VehicleGallery({
 }) {
   const [i, setI] = useState(0);
   const [lightbox, setLightbox] = useState(false);
+  const stripRef = useRef<HTMLDivElement>(null);
   const n = photos.length;
   const label =
     status === "reserved" || status === "sold"
@@ -41,6 +42,12 @@ export default function VehicleGallery({
 
   const prev = useCallback(() => setI((x) => (x - 1 + n) % n), [n]);
   const next = useCallback(() => setI((x) => (x + 1) % n), [n]);
+
+  // Garde la vignette active visible dans la bande défilante.
+  useEffect(() => {
+    const active = stripRef.current?.children[i] as HTMLElement | undefined;
+    active?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [i]);
 
   useEffect(() => {
     if (!lightbox) return;
@@ -121,7 +128,7 @@ export default function VehicleGallery({
       </div>
 
       {n > 1 && (
-        <div className="gallery-vignettes">
+        <div className="gallery-vignettes" ref={stripRef}>
           {photos.map((url, idx) => (
             <button
               key={url}
