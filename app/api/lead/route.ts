@@ -12,7 +12,7 @@ export const runtime = "nodejs";
  * qu'aucune demande ne soit perdue même avant la configuration du courriel.
  */
 const schema = z.object({
-  type: z.enum(["contact", "vendez", "offre"]),
+  type: z.enum(["contact", "vendez", "offre", "service"]),
   name: z.string().min(1).max(200),
   email: z.string().max(320).optional(),
   phone: z.string().max(60).optional(),
@@ -24,9 +24,19 @@ const schema = z.object({
   // Offre sur un véhicule
   offer_amount: z.string().max(40).optional(),
   vehicle_id: z.string().uuid().optional(),
+  // Demande de service (carfax, inspection, financement, transport)
+  service: z.enum(["carfax", "inspection", "financing", "transport"]).optional(),
   // Honeypot anti-spam : champ caché qui doit rester vide.
   company: z.string().max(200).optional(),
 });
+
+// Libellés des services pour le courriel.
+const SERVICE_LABELS: Record<string, string> = {
+  carfax: "Rapport CARFAX",
+  inspection: "Inspection du véhicule",
+  financing: "Demande de financement",
+  transport: "Soumission pour le transport",
+};
 
 // Limiteur de débit best-effort (par IP, fenêtre fixe). Défense en profondeur
 // contre le spam du formulaire ; l'état vit dans l'instance serverless chaude.
@@ -98,7 +108,9 @@ export async function POST(req: Request) {
     message: clean(d.message),
     offer_amount: clean(d.offer_amount),
     vehicle_id: d.vehicle_id ?? null,
+    service: d.service ?? null,
   };
+  const serviceLabel = d.service ? SERVICE_LABELS[d.service] : null;
 
   let saved = false;
   let emailed = false;
@@ -127,18 +139,25 @@ export async function POST(req: Request) {
           ? "Vendez votre auto"
           : d.type === "offre"
             ? "Offre sur un véhicule"
-            : "Contact";
+            : d.type === "service"
+              ? "Demande de service"
+              : "Contact";
       const subject =
-        d.type === "offre"
-          ? `Nouvelle OFFRE — ${lead.vehicle ?? "véhicule"}${
-              lead.offer_amount ? ` — ${lead.offer_amount}` : ""
+        d.type === "service"
+          ? `Nouvelle demande — ${serviceLabel ?? "Service"} — ${
+              lead.vehicle ?? "véhicule"
             }`
-          : d.type === "vendez"
-            ? `Nouvelle demande de vente — ${lead.vehicle ?? lead.name}`
-            : `Nouveau message — ${lead.name}`;
+          : d.type === "offre"
+            ? `Nouvelle OFFRE — ${lead.vehicle ?? "véhicule"}${
+                lead.offer_amount ? ` — ${lead.offer_amount}` : ""
+              }`
+            : d.type === "vendez"
+              ? `Nouvelle demande de vente — ${lead.vehicle ?? lead.name}`
+              : `Nouveau message — ${lead.name}`;
 
       const champs: [string, string | null][] = [
         ["Type", typeLabel],
+        ["Service demandé", serviceLabel],
         ["Véhicule", lead.vehicle],
         ["Montant de l'offre", lead.offer_amount],
         ["Nom", lead.name],

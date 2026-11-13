@@ -1929,7 +1929,7 @@ a.contact-val:hover {
   position: relative;
   width: 100%;
   max-width: 480px;
-  margin: auto;
+  margin: 0 auto;
   background: var(--surface);
   border: 1px solid var(--ligne-2);
   border-radius: 12px;
@@ -2041,12 +2041,79 @@ a.contact-val:hover {
   font-size: 1.06rem;
 }
 
-/* Résumé fiche : léger décalage vers le haut pour centrer sur la grande photo */
+/* Résumé fiche : min-width pour la grille, centré verticalement par la grille.
+   Pas de transform ici (créerait un bloc conteneur cassant les modales fixed). */
 .fiche-infos {
-  transform: translateY(-40px);
+  min-width: 0;
+}
+
+/* VENDEZ — bloc pitch (remplace l'ancien bloc prix 1%) */
+.offre-pitch {
+  border-right: 1px solid var(--ligne);
+  padding-right: 32px;
+}
+.offre-lead {
+  margin: 0;
+  font-family: var(--font-antonio), sans-serif;
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  line-height: 1.08;
+  color: var(--creme);
+}
+.offre-lead-sub {
+  margin: 16px 0 0;
+  color: var(--creme-2);
+  line-height: 1.6;
+}
+@media (max-width: 760px) {
+  .offre-pitch {
+    border-right: none;
+    border-bottom: 1px solid var(--ligne);
+    padding-right: 0;
+    padding-bottom: 24px;
+  }
+}
+
+/* ============================================================
+   FICHE — boutons de services (CARFAX, inspection, financement, transport)
+   ============================================================ */
+.fiche-services-section {
+  margin-top: 44px;
+}
+.fiche-services {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.service-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  min-height: 58px;
+  padding: 14px 14px;
+  background: var(--surface);
+  border: 1px solid var(--ligne-2);
+  border-radius: var(--r);
+  color: var(--creme);
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+.service-btn:hover {
+  border-color: var(--laiton);
+  background: var(--surface-2);
 }
 @media (max-width: 900px) {
-  .fiche-infos {
-    transform: none;
+  .fiche-services {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 420px) {
+  .fiche-services {
+    grid-template-columns: 1fr;
   }
 }

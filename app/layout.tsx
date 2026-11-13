@@ -28,9 +28,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Reeby Auto · Courtage automobile d'exception",
+  title: "Reeby Auto · Véhicules d'exception à Montréal",
   description:
-    "Courtage automobile pour particuliers à Montréal. Véhicules d'exception inspectés, jamais accidentés. Nous vendons aussi votre auto pour 1 % de commission.",
+    "Véhicules d'exception inspectés et jamais accidentés, dans la grande région de Montréal. Reeby Auto vous accompagne pour l'achat comme pour la vente de votre véhicule.",
 };
 
 export default async function RootLayout({

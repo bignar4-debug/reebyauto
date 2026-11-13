@@ -69,7 +69,7 @@ const dict: Record<Locale, Record<string, string>> = {
     "sell.packages_eyebrow": "Nos forfaits",
     "sell.packages_title": "Choisissez votre formule",
     "sell.packages_note":
-      "Frais de mise en marché selon le forfait choisi. Commission au succès uniquement sur le Mandat exclusif.",
+      "Des options simples pour mettre votre véhicule en valeur.",
     "sell.form_title": "Parlez-nous de votre véhicule",
     "sell.form_intro":
       "Remplissez ce formulaire et Jonni vous recontactera rapidement.",
@@ -78,9 +78,9 @@ const dict: Record<Locale, Record<string, string>> = {
     "sell.popular": "Recommandé",
     "sell.hero_title": "Vendez votre véhicule avec Reeby",
     "sell.hero_sub": "Simple. Transparent. Efficace.",
-    "sell.offer_upfront": "Aucun frais à l'avance",
-    "sell.offer_success": "au succès",
-    "sell.offer_condition": "Seulement si l'acheteur provient de Reeby Auto",
+    "sell.offer_lead": "On s'occupe de la mise en marché de votre véhicule.",
+    "sell.offer_lead_sub":
+      "Vous gardez le contrôle : on met votre véhicule en valeur et on vous connecte à des acheteurs sérieux.",
     "sell.offer_includes": "Ce qui est inclus",
     "sell.options_title": "Options supplémentaires",
     "sell.opt_signature": "Option Signature",
@@ -98,6 +98,18 @@ const dict: Record<Locale, Record<string, string>> = {
     "offer.err_amount": "Indiquez le montant de votre offre.",
     "offer.close": "Fermer",
     "offer.questions": "Des questions ? Contactez-nous",
+
+    "service.section_title": "Services pour ce véhicule",
+    "service.carfax_btn": "📋 Obtenir le rapport CARFAX",
+    "service.inspection_btn": "🔍 Planifier une inspection",
+    "service.financing_btn": "💳 Demande de financement",
+    "service.transport_btn": "🚚 Soumission pour le transport",
+    "service.carfax": "Rapport CARFAX",
+    "service.inspection": "Inspection du véhicule",
+    "service.financing": "Demande de financement",
+    "service.transport": "Soumission pour le transport",
+    "service.success":
+      "Merci ! Votre demande a bien été reçue. Jonni vous contactera rapidement.",
 
     "gallery.zoom": "Agrandir la photo",
     "gallery.prev": "Photo précédente",
@@ -131,7 +143,7 @@ const dict: Record<Locale, Record<string, string>> = {
       "Merci ! Votre message a bien été reçu. On vous répond rapidement. Pour une réponse immédiate, appelez le 438 526-4388.",
 
     "about.eyebrow": "À propos",
-    "about.title": "Jonni Langlois, votre courtier de confiance.",
+    "about.title": "Jonni Langlois, votre partenaire automobile de confiance.",
     "about.p1_a": "Fondateur de Reeby Auto, Jonni Langlois a bâti sa réputation sur une passion sincère pour l'automobile et un souci constant du détail. Au fil de ",
     "about.p1_strong": "nombreuses transactions",
     "about.p1_b":
@@ -220,7 +232,7 @@ const dict: Record<Locale, Record<string, string>> = {
     "sell.packages_eyebrow": "Our packages",
     "sell.packages_title": "Choose your package",
     "sell.packages_note":
-      "Marketing fee depends on the package you choose. Success commission only on the Exclusive Mandate.",
+      "Simple options to showcase your vehicle.",
     "sell.form_title": "Tell us about your vehicle",
     "sell.form_intro":
       "Fill out this form and Jonni will get back to you shortly.",
@@ -229,9 +241,9 @@ const dict: Record<Locale, Record<string, string>> = {
     "sell.popular": "Recommended",
     "sell.hero_title": "Sell your vehicle with Reeby",
     "sell.hero_sub": "Simple. Transparent. Effective.",
-    "sell.offer_upfront": "No upfront fees",
-    "sell.offer_success": "success fee",
-    "sell.offer_condition": "Only if the buyer comes from Reeby Auto",
+    "sell.offer_lead": "We handle the marketing of your vehicle.",
+    "sell.offer_lead_sub":
+      "You stay in control: we showcase your vehicle and connect you with serious buyers.",
     "sell.offer_includes": "What's included",
     "sell.options_title": "Optional add-ons",
     "sell.opt_signature": "Signature option",
@@ -249,6 +261,18 @@ const dict: Record<Locale, Record<string, string>> = {
     "offer.err_amount": "Enter your offer amount.",
     "offer.close": "Close",
     "offer.questions": "Questions? Contact us",
+
+    "service.section_title": "Services for this vehicle",
+    "service.carfax_btn": "📋 Get the CARFAX report",
+    "service.inspection_btn": "🔍 Schedule an inspection",
+    "service.financing_btn": "💳 Request financing",
+    "service.transport_btn": "🚚 Get a transport quote",
+    "service.carfax": "CARFAX report",
+    "service.inspection": "Vehicle inspection",
+    "service.financing": "Financing request",
+    "service.transport": "Transport quote",
+    "service.success":
+      "Thank you! Your request has been received. Jonni will contact you shortly.",
 
     "gallery.zoom": "Enlarge photo",
     "gallery.prev": "Previous photo",
@@ -281,7 +305,7 @@ const dict: Record<Locale, Record<string, string>> = {
       "Thank you! Your message has been received. We'll reply shortly. For an immediate answer, call 438 526-4388.",
 
     "about.eyebrow": "About",
-    "about.title": "Jonni Langlois, your trusted broker.",
+    "about.title": "Jonni Langlois, your trusted automotive partner.",
     "about.p1_a": "Founder of Reeby Auto, Jonni Langlois built his reputation on a genuine passion for cars and a constant eye for detail. Through ",
     "about.p1_strong": "many transactions",
     "about.p1_b":

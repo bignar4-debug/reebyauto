@@ -6,7 +6,7 @@ import { t, type Locale } from "@/lib/i18n";
 export const metadata: Metadata = {
   title: "Vendez votre auto · Reeby Auto",
   description:
-    "Aucun frais à l'avance, 1 % au succès seulement si l'acheteur provient de Reeby Auto. Options Signature et Promotion. Grande région de Montréal.",
+    "On s'occupe de la mise en marché de votre véhicule : annonce optimisée, diffusion et accompagnement. Options Signature et Promotion. Grande région de Montréal.",
 };
 
 const INCLUS: Record<Locale, string[]> = {
@@ -64,13 +64,11 @@ export default async function Vendez() {
         <p className="page-sous">{t(locale, "sell.hero_sub")}</p>
       </header>
 
-      {/* Offre principale : 0 $ à l'avance, 1 % au succès */}
+      {/* Offre principale : mise en marché du véhicule */}
       <section className="offre-principale panneau" aria-label={t(locale, "sell.eyebrow")}>
-        <div className="offre-prix">
-          <p className="offre-avance">{t(locale, "sell.offer_upfront")}</p>
-          <p className="offre-pourcent">1&nbsp;%</p>
-          <p className="offre-succes">{t(locale, "sell.offer_success")}</p>
-          <p className="offre-condition">{t(locale, "sell.offer_condition")}</p>
+        <div className="offre-pitch">
+          <p className="offre-lead">{t(locale, "sell.offer_lead")}</p>
+          <p className="offre-lead-sub">{t(locale, "sell.offer_lead_sub")}</p>
         </div>
         <div className="offre-inclus-bloc">
           <p className="offre-inclus-titre">{t(locale, "sell.offer_includes")}</p>

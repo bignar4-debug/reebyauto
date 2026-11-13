@@ -6,7 +6,7 @@ import { t } from "@/lib/i18n";
 export const metadata: Metadata = {
   title: "À propos · Jonni Langlois, Reeby Auto",
   description:
-    "Jonni Langlois, courtier automobile à Montréal. Expertise, connaissance du marché et nombreuses transactions au service des acheteurs et des vendeurs.",
+    "Jonni Langlois, fondateur de Reeby Auto à Montréal. Passion de l'automobile, connaissance du marché et souci du détail au service des acheteurs et des vendeurs.",
 };
 
 export default async function APropos() {

@@ -6,6 +6,7 @@ import { allPhotoUrls } from "@/lib/photos";
 import { formatPrix, formatKm, carrosserieLabel, specValue } from "@/lib/format";
 import VehicleGallery from "@/components/VehicleGallery";
 import OffreButton from "@/components/OffreButton";
+import ServiceButtons from "@/components/ServiceButtons";
 import { getLocale } from "@/lib/getLocale";
 import { t } from "@/lib/i18n";
 
@@ -105,6 +106,21 @@ export default async function FicheVehicule({
           </div>
         </div>
       </div>
+
+      {/* Services pour ce véhicule */}
+      <section
+        className="fiche-services-section"
+        aria-label={t(locale, "service.section_title")}
+      >
+        <h2 className="fiche-section-titre">
+          {t(locale, "service.section_title")}
+        </h2>
+        <ServiceButtons
+          vehicleId={v.id}
+          vehicleLabel={`${v.make} ${v.model} ${v.year}`}
+          locale={locale}
+        />
+      </section>
 
       {/* Spécifications */}
       <section className="fiche-specs" aria-label={t(locale, "fiche.specs_title")}>
