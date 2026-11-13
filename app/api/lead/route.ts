@@ -156,10 +156,10 @@ export async function POST(req: Request) {
               : `Nouveau message — ${lead.name}`;
 
       const champs: [string, string | null][] = [
-        ["Type", typeLabel],
         ["Service demandé", serviceLabel],
         ["Véhicule", lead.vehicle],
         ["Montant de l'offre", lead.offer_amount],
+        ["Type", typeLabel],
         ["Nom", lead.name],
         ["Courriel", lead.email],
         ["Téléphone", lead.phone],

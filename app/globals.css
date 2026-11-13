@@ -1917,23 +1917,24 @@ a.contact-val:hover {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 32px 16px;
+  padding: 40px 16px;
   overflow-y: auto;
 }
 .offre-modale {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 460px;
   margin: 0 auto;
-  background: var(--surface);
-  border: 1px solid var(--ligne-2);
-  border-radius: 12px;
-  padding: 32px;
+  background: #1b1b1f;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  padding: 30px;
 }
 .offre-fermer {
   position: absolute;
@@ -1953,15 +1954,17 @@ a.contact-val:hover {
   border-color: var(--creme);
 }
 .offre-surtitre {
-  margin: 0;
-  font-size: 0.72rem;
+  margin: 0 0 2px;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--gris-2);
+  letter-spacing: 0.18em;
+  color: var(--laiton-clair);
 }
 .offre-vehicule {
-  margin: 4px 0 22px;
+  margin: 0 0 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ligne);
   font-family: var(--font-antonio), sans-serif;
   font-size: 1.5rem;
   color: var(--creme);
