@@ -1917,7 +1917,7 @@ a.contact-val:hover {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: flex-start;
@@ -1930,9 +1930,9 @@ a.contact-val:hover {
   width: 100%;
   max-width: 460px;
   margin: 0 auto;
-  background: #1b1b1f;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  background: #202027;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 16px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
   padding: 30px;
 }
