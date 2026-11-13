@@ -156,7 +156,16 @@ export default function VendezForm({ locale = "fr" }: { locale?: Locale }) {
 
         <div className="champ champ-large">
           <label htmlFor="message">{t(locale, "form.message_opt")}</label>
-          <textarea id="message" rows={4} {...register("message")} />
+          <textarea
+            id="message"
+            rows={4}
+            {...register("message")}
+            onInput={(e) => {
+              const el = e.currentTarget;
+              el.style.height = "auto";
+              el.style.height = el.scrollHeight + "px";
+            }}
+          />
         </div>
       </div>
 

@@ -205,7 +205,16 @@ export default function ServiceButtons({
                     <label htmlFor="s-message">
                       {t(locale, "form.message_opt")}
                     </label>
-                    <textarea id="s-message" rows={3} {...register("message")} />
+                    <textarea
+                      id="s-message"
+                      rows={3}
+                      {...register("message")}
+                      onInput={(e) => {
+                        const el = e.currentTarget;
+                        el.style.height = "auto";
+                        el.style.height = el.scrollHeight + "px";
+                      }}
+                    />
                   </div>
                 </div>
 

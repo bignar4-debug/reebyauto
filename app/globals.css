@@ -840,6 +840,7 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0; /* permet aux colonnes de la grille de rétrécir (sinon débordement) */
 }
 .champ-large {
   grid-column: 1 / -1;
@@ -852,6 +853,8 @@ h1, h2, h3, h4 {
 .champ input,
 .champ textarea,
 .champ select {
+  width: 100%;
+  min-width: 0;
   background: #0e0e10;
   border: 1px solid var(--ligne-2);
   border-radius: var(--r);
@@ -868,7 +871,9 @@ h1, h2, h3, h4 {
   border-color: var(--laiton);
 }
 .champ textarea {
-  resize: vertical;
+  resize: none;
+  overflow: hidden;
+  min-height: 92px;
 }
 .champ-erreur {
   color: #d8825f;

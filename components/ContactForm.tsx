@@ -112,7 +112,16 @@ export default function ContactForm({ locale = "fr" }: { locale?: Locale }) {
 
         <div className="champ champ-large">
           <label htmlFor="c-message">{t(locale, "form.message")}</label>
-          <textarea id="c-message" rows={5} {...register("message")} />
+          <textarea
+            id="c-message"
+            rows={5}
+            {...register("message")}
+            onInput={(e) => {
+              const el = e.currentTarget;
+              el.style.height = "auto";
+              el.style.height = el.scrollHeight + "px";
+            }}
+          />
           {errors.message && (
             <span className="champ-erreur">{errors.message.message}</span>
           )}

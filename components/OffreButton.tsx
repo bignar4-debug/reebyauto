@@ -200,7 +200,16 @@ export default function OffreButton({
                     <label htmlFor="o-message">
                       {t(locale, "form.message_opt")}
                     </label>
-                    <textarea id="o-message" rows={3} {...register("message")} />
+                    <textarea
+                      id="o-message"
+                      rows={3}
+                      {...register("message")}
+                      onInput={(e) => {
+                        const el = e.currentTarget;
+                        el.style.height = "auto";
+                        el.style.height = el.scrollHeight + "px";
+                      }}
+                    />
                   </div>
                 </div>
 
